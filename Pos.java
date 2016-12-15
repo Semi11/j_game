@@ -12,6 +12,10 @@ class PosInfo {
   public void setPos(float x, float y) {
     this.pos.set(x, y);
   }
+  
+  public Vec2 getPos() {
+    return this.pos;
+  }
 
   public void setVel(float vel, float ang) {
     double rad = Math.toRadians(ang); 
@@ -19,6 +23,6 @@ class PosInfo {
   }
 
   public void update() {
-    pos.add(vel);
+    pos = pos.add(vel);
   }
 }
