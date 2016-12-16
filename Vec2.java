@@ -1,7 +1,7 @@
 class Vec2 {
-  public float x, y;
+  public double x, y;
 
-  public Vec2(float x, float y) {
+  public Vec2(double x, double y) {
     set(x,y);
   }
 
@@ -9,7 +9,7 @@ class Vec2 {
     this(0,0); 
   }
 
-  public void set(float x, float y) {
+  public void set(double x, double y) {
     this.x=x;
     this.y=y;
   }

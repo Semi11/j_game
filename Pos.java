@@ -9,7 +9,7 @@ class PosInfo {
     acc = new Vec2();
   }
 
-  public void setPos(float x, float y) {
+  public void setPos(double x, double y) {
     this.pos.set(x, y);
   }
   
@@ -17,9 +17,9 @@ class PosInfo {
     return this.pos;
   }
 
-  public void setVel(float vel, float ang) {
+  public void setVel(double vel, double ang) {
     double rad = Math.toRadians(ang); 
-    this.vel.set(vel * (float)Math.cos(rad), vel * (float)Math.sin(rad));
+    this.vel.set(vel * Math.cos(rad), vel * Math.sin(rad));
   }
 
   public void update() {
