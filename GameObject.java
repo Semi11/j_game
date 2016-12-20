@@ -1,35 +1,89 @@
-import processing.core.*;
+enum GameObjectTag {
+  ENEMY,
+}
 
-class GameObject{
-  private PosInfo pos_info = new PosInfo();
-  private MoveableStrategy move;
-  private Drawable draw = DrawPImage.getInstance();
-  PImage image;
+class GameObject implements Cloneable {
+  private PosInfo pos_info;
+  private StatusInfo sta_info;
+  private MoveType move;
+  private Drawable drawer;
+  private GameObjectTag tag;
+  private int g_obj_id;
+  private int img_id;
+  private int cnt;
+  private boolean alive;
 
-  public GameObject(double px, double py, String img_name, int move_id) {
-    init(px, py, img_name, move_id);
+  public GameObject(Drawable drawer) {
+    this.drawer = drawer;
   }
 
   public GameObject() {
+    pos_info = new PosInfo();
+    sta_info = new StatusInfo();
   }
 
 
-  public void init(double px, double py, String img_name, int move_id) {
+  public void init(double px, double py) {
     pos_info.setPos(px, py);
-    move = new MoveStrategy0(pos_info);
+    alive = true;
   }
 
-  public void lI(PApplet p) {
-    this.image = p.loadImage("test.png");
-    p.image(this.image, (float)0.0, (float)0.0);
+  public void setDrawer(Drawable d) {
+    this.drawer = d;
+  }
+
+  public void setGameObjectID(int id) {
+    this.g_obj_id = id;
+  }
+  
+  public int getGameObjectID() {
+    return this.g_obj_id;
+  }
+
+  public void setImageID(int id) {
+    this.img_id = id;
+  }
+
+  public void setHp(int hp) {
+    this.sta_info.setHp(hp);
+  }
+
+  public void setMoveType(String type) {
+    this.move = MoveType.valueOf("MOVE"+type);
+  }
+
+  public void setTag(String tag) {
+    this.tag =  GameObjectTag.valueOf(tag);
+  }
+
+  public void setPower(int pow) {
+    this.sta_info.setPower(pow);
   }
 
   public boolean update() {
-    move.update();
+
+    move.update(pos_info, cnt);
+    cnt++;
     return true;
   }
 
   public void draw() {
-    draw.draw(pos_info, "test.png");
+    drawer.draw(pos_info, img_id);
+  }
+
+  public GameObject createClone() {
+    GameObject g = null;
+
+    try {
+      g = (GameObject)this.clone();
+    }
+    catch(CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+    return g;
+  }
+
+  boolean isAlive() {
+    return alive;
   }
 }
