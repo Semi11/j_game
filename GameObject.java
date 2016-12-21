@@ -2,7 +2,7 @@ enum GameObjectTag {
   ENEMY,
 }
 
-class GameObject implements Cloneable {
+  class GameObject implements Cloneable {
   private PosInfo pos_info;
   private StatusInfo sta_info;
   private MoveType move;
@@ -13,15 +13,15 @@ class GameObject implements Cloneable {
   private int cnt;
   private boolean alive;
 
-  public GameObject(Drawable drawer) {
-    this.drawer = drawer;
-  }
-
   public GameObject() {
     pos_info = new PosInfo();
     sta_info = new StatusInfo();
   }
 
+  public GameObject(Drawable drawer) {
+    this();
+    this.setDrawer(drawer);
+  }
 
   public void init(double px, double py) {
     pos_info.setPos(px, py);
@@ -35,7 +35,7 @@ class GameObject implements Cloneable {
   public void setGameObjectID(int id) {
     this.g_obj_id = id;
   }
-  
+
   public int getGameObjectID() {
     return this.g_obj_id;
   }
@@ -48,6 +48,10 @@ class GameObject implements Cloneable {
     this.sta_info.setHp(hp);
   }
 
+  public void setPower(int pow) {
+    this.sta_info.setPower(pow);
+  }
+
   public void setMoveType(String type) {
     this.move = MoveType.valueOf("MOVE"+type);
   }
@@ -56,12 +60,7 @@ class GameObject implements Cloneable {
     this.tag =  GameObjectTag.valueOf(tag);
   }
 
-  public void setPower(int pow) {
-    this.sta_info.setPower(pow);
-  }
-
   public boolean update() {
-
     move.update(pos_info, cnt);
     cnt++;
     return true;
@@ -71,17 +70,17 @@ class GameObject implements Cloneable {
     drawer.draw(pos_info, img_id);
   }
 
-  public GameObject createClone() {
-    GameObject g = null;
+  //public GameObject clone() {
+  //  GameObject g = null;
 
-    try {
-      g = (GameObject)this.clone();
-    }
-    catch(CloneNotSupportedException e) {
-      e.printStackTrace();
-    }
-    return g;
-  }
+  //  try {
+  //    g = (GameObject)this.clone();
+  //  }
+  //  catch(Exception e) {
+  //    e.printStackTrace();
+  //  }
+  //  return g;
+  //}
 
   boolean isAlive() {
     return alive;

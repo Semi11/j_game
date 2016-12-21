@@ -17,7 +17,6 @@ class CSVReader {
     BufferedReader br = null;
 
     try {
-      System.out.println("start!!!!!!!!!!!!!!");
       br = new BufferedReader(new FileReader(csv));
 
       String line = "";
@@ -31,7 +30,7 @@ class CSVReader {
         int idx_to = 0;
         int word_idx = 0;
 
-        while (idx_from > line.length()) {
+        while (idx_from < line.length()) {
           idx_to = line.indexOf(",", idx_from);
 
           if (idx_to == -1) {
@@ -42,16 +41,15 @@ class CSVReader {
 
           if (is_set_hedder) {
             tmp_map.put(hedder_words.get(word_idx), word);
+            ret.add(tmp_map);
           } else {
             hedder_words.add(word);
+            
           }
-          System.out.println(word);
-
           word_idx++;
           idx_from = idx_to+1;
         }
-
-        ret.add(tmp_map);
+        is_set_hedder = true;
       }
     }
     catch(FileNotFoundException e) {
@@ -70,7 +68,7 @@ class CSVReader {
         e.printStackTrace();
       }
     }
-    
+
     return ret;
   }
 }
