@@ -14,33 +14,9 @@ class GameObjectFactory{
     g_obj_data_list = csv_reader.read(path + "GameObjectData.csv");
   }
 
-  //public void generatePrototype() {
-  //  CSVReader csv_reader = new CSVReader();
-  //  List<HashMap<String, String>> g_obj_data_list;
-
-  //  g_obj_data_list = csv_reader.read("/home/student/j15/j15426/J2program/processing/j_game/data/GameObjectData.csv");//dataPath("GameObjectData.csv"));
-
-  //  for (HashMap<String, String> data : g_obj_data_list) {
-  //    GameObject g = this.getGameObject();
-
-  //    g.setGameObjectID(Integer.parseInt(data.get("GameObjectID")));
-  //    g.setImageID(Integer.parseInt(data.get("ImageID")));
-  //    g.setHp(Integer.parseInt(data.get("HP")));
-  //    g.setPower(Integer.parseInt(data.get("Power")));
-  //    g.setMoveType(data.get("MoveType"));
-  //    g.setTag(data.get("Tag"));
-
-  //    prototype_list.add(g);
-  //  }
-  //}
-
   public GameObject getGameObject() {
     return new GameObject(drawer);
   }
-
-  //public GameObject getGameObject(int id) {
-  //  return prototype_list.get(id).clone();
-  //}
 
   public GameObject getGameObject(int id) {
     HashMap<String, String> data = g_obj_data_list.get(id);
@@ -65,7 +41,6 @@ class GameObjectManager {
   public GameObjectManager(Drawable d, String path) {
     drawer = d;
     g_obj_fac = new GameObjectFactory(d, path);
-    //g_obj_fac.generatePrototype();
   }
 
   public void addGameObject(int g_obj_id, double px, double py) {

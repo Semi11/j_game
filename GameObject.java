@@ -70,18 +70,6 @@ enum GameObjectTag {
     drawer.draw(pos_info, img_id);
   }
 
-  //public GameObject clone() {
-  //  GameObject g = null;
-
-  //  try {
-  //    g = (GameObject)this.clone();
-  //  }
-  //  catch(Exception e) {
-  //    e.printStackTrace();
-  //  }
-  //  return g;
-  //}
-
   boolean isAlive() {
     return alive;
   }

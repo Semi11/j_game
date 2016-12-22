@@ -9,7 +9,7 @@ void setup() {
 
   PImageManager img_manager = new PImageManager(this, DATAPATH, "GameObjectImage");
   Drawable drawer = new DrawPImage(this, img_manager);
-  gm = new GameObjectManager(drawer);
+  gm = new GameObjectManager(drawer, DATAPATH);
   gm.addGameObject(0, 100, 100);
 
 }
