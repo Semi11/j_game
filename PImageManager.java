@@ -6,10 +6,11 @@ import java.io.File;
 class PImageManager {
   private PApplet pApplet;
   private List<PImage> img_list = new ArrayList<PImage>();
-  private String path = "/home/student/j15/j15426/J2program/processing/j_game/data/GameObjectImage/";
+  private String path;
 
-  public PImageManager(PApplet p) {
+  public PImageManager(PApplet p, String path, String dir) {
     pApplet = p;
+    this.path = path + dir;
     this.loadAll();
   }
 
@@ -17,7 +18,7 @@ class PImageManager {
     File dir = new File(path);
     File[] files = dir.listFiles();
     for (int i=0; i<files.length; i++) {
-      img_list.add(pApplet.loadImage(path+i+".png"));
+      img_list.add(pApplet.loadImage(path+"/"+i+".png"));
     }
   }
 

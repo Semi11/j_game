@@ -8,10 +8,10 @@ class GameObjectFactory{
   private List<GameObject> prototype_list = new ArrayList<GameObject>();
   private List<HashMap<String, String>> g_obj_data_list;
 
-  public GameObjectFactory(Drawable d) {
+  public GameObjectFactory(Drawable d, String path) {
     CSVReader csv_reader = new CSVReader();
     drawer = d;
-    g_obj_data_list = csv_reader.read("/home/student/j15/j15426/J2program/processing/j_game/data/GameObjectData.csv");
+    g_obj_data_list = csv_reader.read(path + "GameObjectData.csv");
   }
 
   //public void generatePrototype() {
@@ -62,9 +62,9 @@ class GameObjectManager {
   private GameObjectFactory g_obj_fac;
   private List<GameObject> g_obj_list = new ArrayList<GameObject>();
 
-  public GameObjectManager(Drawable d) {
+  public GameObjectManager(Drawable d, String path) {
     drawer = d;
-    g_obj_fac = new GameObjectFactory(d);
+    g_obj_fac = new GameObjectFactory(d, path);
     //g_obj_fac.generatePrototype();
   }
 

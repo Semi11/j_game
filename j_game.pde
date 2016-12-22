@@ -5,7 +5,9 @@ void setup() {
   background(0);
   frameRate(60);
 
-  PImageManager img_manager = new PImageManager(this);
+  final String DATAPATH = sketchPath("data") + "/";
+
+  PImageManager img_manager = new PImageManager(this, DATAPATH, "GameObjectImage");
   Drawable drawer = new DrawPImage(this, img_manager);
   gm = new GameObjectManager(drawer);
   gm.addGameObject(0, 100, 100);
