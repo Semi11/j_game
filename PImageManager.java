@@ -1,4 +1,5 @@
-import processing.core.*;
+import processing.core.PApplet;
+import processing.core.PImage;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -10,7 +11,7 @@ class PImageManager {
 
   public PImageManager(PApplet p, String path, String dir) {
     pApplet = p;
-    this.path = path + dir;
+    this.path = path + dir + "Image";
     this.loadAll();
   }
 

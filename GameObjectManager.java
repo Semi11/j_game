@@ -2,8 +2,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import processing.core.PApplet;
 
-class GameObjectFactory{
+class GameObjectFactory {
   private Drawable drawer;
   private List<GameObject> prototype_list = new ArrayList<GameObject>();
   private List<HashMap<String, String>> g_obj_data_list;
@@ -28,7 +29,7 @@ class GameObjectFactory{
     g.setPower(Integer.parseInt(data.get("Power")));
     g.setMoveType(data.get("MoveType"));
     g.setTag(data.get("Tag"));
-    
+
     return g;
   }
 }
@@ -37,10 +38,12 @@ class GameObjectManager {
   private Drawable drawer;
   private GameObjectFactory g_obj_fac;
   private List<GameObject> g_obj_list = new ArrayList<GameObject>();
+  private MapManager map_manager;
 
-  public GameObjectManager(Drawable d, String path) {
-    drawer = d;
-    g_obj_fac = new GameObjectFactory(d, path);
+  public GameObjectManager(PApplet p, String path) {
+    drawer = new DrawPImage(p, path, "GameObject");
+    g_obj_fac = new GameObjectFactory(drawer, path);
+    map_manager = new MapManager(p, path, "map");
   }
 
   public void addGameObject(int g_obj_id, double px, double py) {
@@ -56,6 +59,7 @@ class GameObjectManager {
   }
 
   public void draw() {
+    map_manager.draw();
     for (GameObject g : g_obj_list) {
       g.draw();
     }

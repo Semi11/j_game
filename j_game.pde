@@ -1,15 +1,13 @@
 GameObjectManager gm;
 
 void setup() {
-  size(300, 300);
+  size(1000, 1000);
   background(0);
   frameRate(60);
 
   final String DATAPATH = sketchPath("data") + "/";
 
-  PImageManager img_manager = new PImageManager(this, DATAPATH, "GameObjectImage");
-  Drawable drawer = new DrawPImage(this, img_manager);
-  gm = new GameObjectManager(drawer, DATAPATH);
+  gm = new GameObjectManager(this, DATAPATH);
   gm.addGameObject(0, 100, 100);
 
 }
@@ -19,4 +17,5 @@ void draw() {
 
   gm.update();
   gm.draw();
+  exit();
 }
