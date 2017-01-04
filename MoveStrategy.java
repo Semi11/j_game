@@ -1,3 +1,5 @@
+import java.awt.event.KeyEvent;
+
 enum MoveType {
     MOVE0(MoveStrategy.M0), 
     MOVE1(MoveStrategy.M1);
@@ -13,12 +15,19 @@ enum MoveType {
     }
 
     private enum MoveStrategy {
-	M1 {      
+	M0 {      
 	    void move(PosInfo pos_info, int cnt) {
-		
+		if(InputManager.INSTANCE.isKeyDown(KeyEvent.VK_RIGHT)){
+		    pos_info.setVel(2.0, pos_info.getVel().y);
+		}else if(InputManager.INSTANCE.isKeyDown(KeyEvent.VK_LEFT)){
+		    pos_info.setVel(-2.0, pos_info.getVel().y);
+		}else{
+		    pos_info.setVel(0.0, pos_info.getVel().y);
+		}
+		pos_info.update();
 	    }
 	},
-	M0 {      
+	M1 {      
 	    void move(PosInfo pos_info, int cnt) {
 		double x = pos_info.getVel().x;
 		if(x==0.0)x=-2.0;

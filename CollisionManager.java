@@ -16,10 +16,10 @@ class CollisionManager {
 
 	if (tile_pos!=null) {
 	    if (vel.x > 0) {
-		pos.x = tile_pos.x-size.x;
+		pos.x = tile_pos.x+size.x;
 		pos_info.setColDir(DIRECTION.RIGHT);
 	    } else if (vel.x < 0) {
-		pos.x = tile_pos.x+size.x;
+		pos.x = tile_pos.x-size.x;
 		pos_info.setColDir(DIRECTION.LEFT);
 	    }
 	}else{

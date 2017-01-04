@@ -1,21 +1,18 @@
-GameObjectManager gm;
+ActionGame ag;
 
-void setup() {
-  size(1000, 1000);
-  background(0);
-  frameRate(60);
-  imageMode(CORNER);
-  
-  final String DATAPATH = sketchPath("data") + "/";
-
-  gm = new GameObjectManager(this, DATAPATH);
-  gm.addGameObject(0, 570, 100);
-
+public void settings(){
+    size(1000, 1000);
 }
 
-void draw() {
-  background(0);
+public void setup() {
+    background(0);
+    frameRate(60);
+    imageMode(CORNER);
 
-  gm.update();
-  gm.draw();
+    final String DATAPATH = sketchPath("data") + "/";
+    ag = new ActionGame(this,DATAPATH);
+}
+
+public void draw() {
+    ag.update();
 }
