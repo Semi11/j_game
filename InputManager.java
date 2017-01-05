@@ -1,7 +1,6 @@
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
+import processing.event.KeyEvent;
 
-enum InputManager implements KeyListener{
+public enum InputManager {
     INSTANCE;
     
     private int[] keys = new int[256]; 
@@ -10,12 +9,20 @@ enum InputManager implements KeyListener{
     private boolean keyPressed = false;
     private boolean keyReleased = false;
 
+    public void keyEvent(KeyEvent e){
+	switch(e.getAction()){
+	case KeyEvent.PRESS:keyPressed(e);break;
+	case KeyEvent.RELEASE:keyReleased(e);break;
+	case KeyEvent.TYPE:keyTyped(e);break;
+	}
+    }
+
     public void keyPressed(KeyEvent e){
 	int key = e.getKeyCode();
 
 	if(key >= 0 && key < 256){
-	    key_state_up[key] = true;
-	    key_state_down[key] = false;
+	    key_state_up[key] = false;
+	    key_state_down[key] = true;
 	    keyPressed = true;
 	    keyReleased = false;
 	}
@@ -26,8 +33,8 @@ enum InputManager implements KeyListener{
 
 	if(key >= 0 && key < 256){
 	    keys[key] = 0;
-	    key_state_up[key] = false;
-	    key_state_down[key] = true;
+	    key_state_up[key] = true;
+	    key_state_down[key] = false;
 	    keyPressed = false;
 	    keyReleased = true;
 	}

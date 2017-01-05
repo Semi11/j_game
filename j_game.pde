@@ -1,18 +1,20 @@
 ActionGame ag;
 
-public void settings(){
+void settings(){
     size(1000, 1000);
 }
 
-public void setup() {
+void setup() {
     background(0);
     frameRate(60);
     imageMode(CORNER);
 
     final String DATAPATH = sketchPath("data") + "/";
+
+    registerMethod("keyEvent",InputManager.INSTANCE);
     ag = new ActionGame(this,DATAPATH);
 }
 
-public void draw() {
+void draw() {
     ag.update();
 }

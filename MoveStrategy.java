@@ -1,4 +1,5 @@
-import java.awt.event.KeyEvent;
+import processing.core.PConstants;
+import processing.event.Event;
 
 enum MoveType {
     MOVE0(MoveStrategy.M0), 
@@ -17,9 +18,9 @@ enum MoveType {
     private enum MoveStrategy {
 	M0 {      
 	    void move(PosInfo pos_info, int cnt) {
-		if(InputManager.INSTANCE.isKeyDown(KeyEvent.VK_RIGHT)){
+		if(InputManager.INSTANCE.isKeyDown(PConstants.RIGHT)){
 		    pos_info.setVel(2.0, pos_info.getVel().y);
-		}else if(InputManager.INSTANCE.isKeyDown(KeyEvent.VK_LEFT)){
+		}else if(InputManager.INSTANCE.isKeyDown(PConstants.LEFT)){
 		    pos_info.setVel(-2.0, pos_info.getVel().y);
 		}else{
 		    pos_info.setVel(0.0, pos_info.getVel().y);
