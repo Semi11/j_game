@@ -5,7 +5,7 @@ enum GameObjectTag {
 class GameObject implements Cloneable {
   private PosInfo pos_info;
   private StatusInfo sta_info;
-  private MoveType move;
+  private MoveType mover;
   private Drawable drawer;
   private GameObjectTag tag;
   private int g_obj_id;
@@ -54,7 +54,7 @@ class GameObject implements Cloneable {
   }
 
   public void setMoveType(String type) {
-    this.move = MoveType.valueOf("MOVE"+type);
+    this.mover = MoveType.valueOf("MOVE"+type);
   }
 
   public void setTag(String tag) {
@@ -69,7 +69,7 @@ class GameObject implements Cloneable {
     this.gravity =g; 
   }
   
-  public boolean getGravity(){
+  public boolean isGravity(){
    return this.gravity; 
   }
   
@@ -78,8 +78,8 @@ class GameObject implements Cloneable {
   }
 
   public boolean update() {
-    move.update(pos_info, cnt);
-    cnt++;
+    mover.update(pos_info, cnt);
+    pos_info.update();
     return true;
   }
 

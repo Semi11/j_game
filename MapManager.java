@@ -9,10 +9,10 @@ class MapManager {
     private JSONArray layer_obj_array;
     private ArrayList <Layer> layer_list = new ArrayList<Layer>();
     private Layer col_layer;
-    private int high;
-    private int widh;
-    private int tile_high;
-    private int tile_widh;
+    private int height;
+    private int width;
+    private int tile_height;
+    private int tile_width;
     private PApplet pApplet;
 
     public MapManager(PApplet p, String path, String name) {
@@ -24,10 +24,10 @@ class MapManager {
     void load_map(String file_name) {
 	map_obj = pApplet.loadJSONObject(file_name + ".json");
 
-	tile_widh = map_obj.getInt("tilewidth");
-	tile_high = map_obj.getInt("tileheight");
-	widh = map_obj.getInt("width");
-	high = map_obj.getInt("height");
+	tile_width = map_obj.getInt("tilewidth");
+	tile_height = map_obj.getInt("tileheight");
+	width = map_obj.getInt("width");
+	height = map_obj.getInt("height");
 
 	init_layer();
     }
@@ -47,12 +47,12 @@ class MapManager {
 
     Vec2 posToTile(Vec2 pos) {
 	Vec2 p = pos;
-	p.set(pos.x/(double)tile_widh, pos.y/(double)tile_high);
+	p.set(pos.x/(double)tile_width, pos.y/(double)tile_height);
 	return p;
     }
 
     Vec2 tileToPos(int idx){
-	return new Vec2((double)((idx%widh)*tile_widh),(double)((idx/widh)*tile_high));
+	return new Vec2((double)((idx%width)*tile_width),(double)((idx/width)*tile_height));
     }
 
     public Vec2 getTileCollision(PosInfo pos_info, Vec2 new_pos) {
@@ -68,7 +68,7 @@ class MapManager {
 
 	for(int x = (int)from.x;x<=to.x;x++){
 	    for(int y = (int)from.y;y<=to.y;y++){
-		int idx = (int)y*widh+(int)x;
+		int idx = (int)y*width+(int)x;
 		if(idx<0 || idx>=data.length || data[idx]==0)continue;
 		return tileToPos(idx);		
 	    }
@@ -78,11 +78,11 @@ class MapManager {
     }
 
     public int getTileWidth(){
-	return tile_widh; 
+	return tile_width; 
     }
 
-    public int getTileHight(){
-	return tile_high;
+    public int getTileHeight(){
+	return tile_height;
     }
 
     void draw() {
@@ -92,11 +92,11 @@ class MapManager {
 
 	    int[] data = layer_list.get(i).getData();
 
-	    for (int y=0; y< high; y++) {
-		for (int x=0; x<widh; x++) {
-		    int idx = data[y*widh+x]-1;
+	    for (int y=0; y< height; y++) {
+		for (int x=0; x<width; x++) {
+		    int idx = data[y*width+x]-1;
 		    if (idx != -1) {
-			drawer.draw(idx, tile_widh * x, tile_high * y);
+			drawer.draw(idx, tile_width * x, tile_height * y);
 		    }
 		}
 	    }

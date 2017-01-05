@@ -58,8 +58,8 @@ class GameObjectManager {
     public void update() {
 	for (GameObject g : g_obj_list) {
 	    g.update();
-	    if (g.getGravity()&&g.getPosInfo().getColDir()!=DIRECTION.DOWN) {
-		g.getPosInfo().setAcc(0.0, 1.0);
+	    if (g.isGravity() && !g.getPosInfo().isColDir(PosInfo.DOWN)) {
+		g.getPosInfo().setAcc(0.0, 0.5);
 	    }else{
 		g.getPosInfo().setAcc(0, 0);
 	    }

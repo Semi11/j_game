@@ -18,32 +18,27 @@ enum MoveType {
     private enum MoveStrategy {
 	M0 {      
 	    void move(PosInfo pos_info, int cnt) {
-		if(InputManager.INSTANCE.isKeyDown(PConstants.RIGHT)){
+		if(InputManager.INSTANCE.isKeyDown(PConstants.RIGHT) && !pos_info.isColDir(PosInfo.RIGHT)){
 		    pos_info.setVel(2.0, pos_info.getVel().y);
-		}else if(InputManager.INSTANCE.isKeyDown(PConstants.LEFT)){
+		}else if(InputManager.INSTANCE.isKeyDown(PConstants.LEFT) && !pos_info.isColDir(PosInfo.LEFT)){
 		    pos_info.setVel(-2.0, pos_info.getVel().y);
 		}else{
 		    pos_info.setVel(0.0, pos_info.getVel().y);
 		}
-		pos_info.update();
+		
+		if(InputManager.INSTANCE.isKeyDown(PConstants.UP) && !pos_info.isColDir(PosInfo.UP) && pos_info.isColDir(PosInfo.DOWN)){
+		    pos_info.setVel(pos_info.getVel().x, -10.0);
+		}
 	    }
 	},
 	M1 {      
 	    void move(PosInfo pos_info, int cnt) {
 		double x = pos_info.getVel().x;
-		if(x==0.0)x=-2.0;
-		if(pos_info.getColDir().equals(DIRECTION.LEFT)||pos_info.getColDir().equals(DIRECTION.RIGHT)){x*=-1.0;}
-		pos_info.setVel(x, pos_info.getVel().y);
-		pos_info.update();
-	    }
-	}, 
-	M2 {
-	    void move(PosInfo pos_info, int cnt) {
-		pos_info.setVel(2.0, 90);
-		pos_info.update();
+		if(x == 0) pos_info.setVel(-2.0, pos_info.getVel().y);
+		if(pos_info.isColDir(PosInfo.LEFT) || pos_info.isColDir(PosInfo.RIGHT)) pos_info.setVel(-x, pos_info.getVel().y);
 	    }
 	};
-
+	
 	abstract void move(PosInfo pos_info, int cnt);
     }
 }

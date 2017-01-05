@@ -1,14 +1,15 @@
-enum DIRECTION {
-    UP,DOWN,LEFT,RIGHT,NONE
-}
-
 class PosInfo {
+    public static final int UP = 0;
+    public static final int DOWN = 1;
+    public static final int RIGHT = 2;
+    public static final int LEFT = 3;
+    public static final int DIRECTION = 4;
     private Vec2 pos; 
     private Vec2 vel;
     private Vec2 acc;
     private Vec2 size;
     private double dir;
-    private DIRECTION col_dir = DIRECTION.DOWN;
+    private boolean[] col_dir = new boolean[DIRECTION];
     private double speed;
 
     public PosInfo() {
@@ -73,16 +74,21 @@ class PosInfo {
 	return this.speed;
     }
 
-    public void setColDir(DIRECTION dir){
-	this.col_dir = dir;
+    public boolean colDir(int dir){
+	if(0>dir || dir>=DIRECTION)return false;
+	
+	col_dir[dir]=true;
+	return true;
     }
 
-    public DIRECTION getColDir(){
-	return this.col_dir;
+    public boolean isColDir(int dir){
+	if(0>dir || dir>=DIRECTION)return false;
+	return col_dir[dir];
     }
     
     public void update() {
 	pos = pos.add(vel);
 	vel = vel.add(acc);
+	col_dir = new boolean[DIRECTION];
     }
 }
