@@ -19,9 +19,9 @@ enum MoveType {
 	M0 {      
 	    void move(PosInfo pos_info, int cnt) {
 		if(InputManager.INSTANCE.isKeyDown(PConstants.RIGHT) && !pos_info.isColDir(PosInfo.RIGHT)){
-		    pos_info.setVel(2.0, pos_info.getVel().y);
+		    pos_info.setVel(3.0, pos_info.getVel().y);
 		}else if(InputManager.INSTANCE.isKeyDown(PConstants.LEFT) && !pos_info.isColDir(PosInfo.LEFT)){
-		    pos_info.setVel(-2.0, pos_info.getVel().y);
+		    pos_info.setVel(-3.0, pos_info.getVel().y);
 		}else{
 		    pos_info.setVel(0.0, pos_info.getVel().y);
 		}
