@@ -7,8 +7,9 @@ class MapManager {
     private Drawable drawer;
     private JSONObject map_obj = new JSONObject();
     private JSONArray layer_obj_array;
-    private ArrayList <Layer> layer_list = new ArrayList<Layer>();
-    private Layer col_layer;
+    private ArrayList <TileLayer> tile_layer_list = new ArrayList<TileLayer>();
+    private TileLayer col_layer;
+    private ObjectLayer obj_layer;    
     private int height;
     private int width;
     private int tile_height;
@@ -18,10 +19,10 @@ class MapManager {
     public MapManager(PApplet p, String path, String name) {
 	drawer = new DrawPImage(p, path, "Map");
 	pApplet = p;
-	load_map(name);
+	loadMap(name);
     }
 
-    void load_map(String file_name) {
+    void loadMap(String file_name) {
 	map_obj = pApplet.loadJSONObject(file_name + ".json");
 
 	tile_width = map_obj.getInt("tilewidth");
@@ -29,18 +30,25 @@ class MapManager {
 	width = map_obj.getInt("width");
 	height = map_obj.getInt("height");
 
-	init_layer();
+	loadLayer();
     }
 
 
-    void init_layer() {
+    void loadLayer() {
 	layer_obj_array = map_obj.getJSONArray("layers");
 
-	for (int i=0; i<layer_obj_array.size(); i++) {
-	    Layer l = new Layer(layer_obj_array.getJSONObject(i));
-	    layer_list.add(l);
-	    if (l.getName().equals("collision")) {
-		col_layer=l;
+	for (int i=0;i<layer_obj_array.size();i++) {
+	    JSONObject layer_obj = layer_obj_array.getJSONObject(i);
+	    String type = layer_obj.getString("type");
+
+	    if(type.equals("tilelayer")){
+		TileLayer l = new TileLayer(layer_obj);
+		tile_layer_list.add(l);
+		if (l.getName().equals("collision")) {
+		    col_layer=l;
+		}
+	    }else if(type.equals("objectgroup")){
+		obj_layer = new ObjectLayer(layer_obj);
 	    }
 	}
     }
@@ -87,10 +95,10 @@ class MapManager {
 
     void draw() {
 
-	for ( int i=0; i<layer_list.size(); i++) {
-	    if (!layer_list.get(i).isVisible())continue;
+	for ( int i=0; i<tile_layer_list.size(); i++) {
+	    if (!tile_layer_list.get(i).isVisible())continue;
 
-	    int[] data = layer_list.get(i).getData();
+	    int[] data = tile_layer_list.get(i).getData();
 
 	    for (int y=0; y< height; y++) {
 		for (int x=0; x<width; x++) {
@@ -104,18 +112,12 @@ class MapManager {
     }
 
     private class Layer {
-	private int[] layer_data;
 	private String name;
 	boolean visible;
 
 	Layer(JSONObject layer_object) {
-	    setData(layer_object.getJSONArray("data"));      
 	    setName(layer_object.getString("name"));
 	    setVisible(layer_object.getBoolean("visible"));
-	}
-
-	void setData(JSONArray data) {
-	    layer_data = data.getIntArray();
 	}
 
 	void setName(String name) {
@@ -126,10 +128,6 @@ class MapManager {
 	    this.visible =  visible;
 	}
 
-	int[] getData() {
-	    return layer_data;
-	}
-
 	String getName() {
 	    return name;
 	}
@@ -138,4 +136,40 @@ class MapManager {
 	    return visible;
 	}
     }
+
+    private class TileLayer extends Layer {
+	private int[] data;
+
+	TileLayer(JSONObject layer_object) {
+	    super(layer_object);
+	    loadData(layer_object.getJSONArray("data"));      
+	}
+
+	void loadData(JSONArray data) {
+	    this.data = data.getIntArray();
+	}
+
+	int[] getData() {
+	    return data;
+	}
+    }
+
+
+    private class ObjectLayer extends Layer {
+	private JSONArray objects;
+
+	ObjectLayer(JSONObject layer_object) {
+	    super(layer_object);
+	    loadObjects(layer_object.getJSONArray("objects"));      
+	}
+
+	void loadObjects(JSONArray o) {
+	    this.objects = o;
+	}
+
+	JSONArray getObjects() {
+	    return objects;
+	}
+    }
+
 }
