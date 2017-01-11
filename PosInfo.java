@@ -38,28 +38,36 @@ class PosInfo {
 	this.pos.set(x, y);
     }
 
-    public Vec2 getPos() {
-	return this.pos;
+    public void setPos(Vec2 pos) {
+	this.pos = pos;
     }
 
     public void setVel(double x, double y) {
 	this.vel.set(x, y);
     }
 
-    public Vec2 getVel() {
-	return this.vel;
-    }
-
     public void setAcc(double x, double y) {
 	this.acc.set(x,y);
     }
 
-    public Vec2 getAcc() {
-	return this.acc;
-    }
-
     public void setSize(double x, double y) {
 	this.size.set(x, y);
+    }
+
+    public void setSize(Vec2 size) {
+	this.size = size;
+    }
+
+    public Vec2 getPos() {
+	return this.pos;
+    }
+
+    public Vec2 getVel() {
+	return this.vel;
+    }
+
+    public Vec2 getAcc() {
+	return this.acc;
     }
 
     public Vec2 getSize() {

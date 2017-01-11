@@ -1,5 +1,5 @@
 enum GameObjectTag {
-  ENEMY,
+    PLAYER,ENEMY,
 }
 
 class GameObject implements Cloneable {
@@ -24,8 +24,9 @@ class GameObject implements Cloneable {
     this.setDrawer(drawer);
   }
 
-  public void init(double px, double py) {
-    pos_info.setPos(px, py);
+  public void init(Vec2 pos, Vec2 size) {
+    pos_info.setPos(pos);
+    pos_info.setSize(size);
     alive = true;
   }
 
@@ -59,10 +60,6 @@ class GameObject implements Cloneable {
 
   public void setTag(String tag) {
     this.tag =  GameObjectTag.valueOf(tag);
-  }
-
-  public void setSize(double x, double y) {
-    this.pos_info.setSize(x,y);
   }
 
   public void setGravity(boolean g){

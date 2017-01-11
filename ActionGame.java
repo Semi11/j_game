@@ -9,7 +9,7 @@ public class ActionGame {
 	this.app =app;
 	this.data_path = path;
 	gm = new GameObjectManager(app, data_path);
-	gm.addGameObject(0, 570, 100);
+	//gm.addGameObject(0, 570, 100);
     }
 
     public void update(){

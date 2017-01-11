@@ -2,13 +2,21 @@ import java.util.List;
 import java.util.ArrayList;
 
 class CollisionManager {
-    public void update(List<GameObject> g_obj_list, MapManager map_manager) {
+    List<GameObject> g_obj_list;
+    MapManager map_manager;
+
+    public CollisionManager(List<GameObject> g_obj_list, MapManager map_manager) {
+	this.g_obj_list = g_obj_list;
+	this.map_manager = map_manager;
+    }
+
+    public void update() {
 	for (GameObject g : g_obj_list) {
-	    collisionTestMap(g.getPosInfo(), map_manager);
+	    collisionTestMap(g.getPosInfo());
 	}
     }
 
-    protected void collisionTestMap(PosInfo pos_info, MapManager map_manager) {
+    protected void collisionTestMap(PosInfo pos_info) {
 	Vec2 pos = pos_info.getPos();
 	Vec2 vel = pos_info.getVel();
 	Vec2 size = pos_info.getSize();

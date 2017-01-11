@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import processing.core.PApplet;
+import processing.data.JSONObject;
+import processing.data.JSONArray;
 
 class GameObjectFactory {
     private Drawable drawer;
@@ -29,7 +31,7 @@ class GameObjectFactory {
 	g.setPower(Integer.parseInt(data.get("Power")));
 	g.setMoveType(data.get("MoveType"));
 	g.setTag(data.get("Tag"));
-	g.setSize(Double.parseDouble(data.get("SizeX")), Double.parseDouble(data.get("SizeY")));
+	//g.setSize(Double.parseDouble(data.get("SizeX")), Double.parseDouble(data.get("SizeY")));
 	g.setGravity(Boolean.valueOf(data.get("Gravity")));
 
 	return g;
@@ -39,19 +41,31 @@ class GameObjectFactory {
 class GameObjectManager {
     private Drawable drawer;
     private GameObjectFactory g_obj_fac;
-    private List<GameObject> g_obj_list = new ArrayList<GameObject>();
     private MapManager map_manager;
-    private CollisionManager col_manager = new CollisionManager();
+    private CollisionManager col_manager;
+    private List<GameObject> g_obj_list = new ArrayList<GameObject>();
 
     public GameObjectManager(PApplet p, String path) {
 	drawer = new DrawPImage(p, path, "GameObject");
 	g_obj_fac = new GameObjectFactory(drawer, path);
 	map_manager = new MapManager(p, path, "map");
+	col_manager = new CollisionManager(g_obj_list, map_manager);
+	addGameObject(map_manager.getGameObjectData());
     }
 
-    public void addGameObject(int g_obj_id, double px, double py) {
+    public void addGameObject(JSONArray g_objects_data){
+	for(int i=0;i<g_objects_data.size();i++){
+	    JSONObject g_obj_data = g_objects_data.getJSONObject(i);
+	    int id = Integer.parseInt(g_obj_data.getString("type"));
+	    Vec2 pos = new Vec2(g_obj_data.getFloat("x"),g_obj_data.getFloat("y"));
+	    Vec2 size = new Vec2(g_obj_data.getFloat("width"),g_obj_data.getFloat("height"));
+	    addGameObject(id,pos,size);
+	}
+    }
+
+    public void addGameObject(int g_obj_id, Vec2 pos, Vec2 size) {
 	GameObject g = g_obj_fac.getGameObject(g_obj_id);
-	g.init(px, py);
+	g.init(pos, size);
 	g_obj_list.add(g);
     }
 
@@ -64,7 +78,7 @@ class GameObjectManager {
 		g.getPosInfo().setAcc(0, 0);
 	    }
 	}
-	col_manager.update(g_obj_list, map_manager);
+	col_manager.update();
     }
 
     public void draw() {

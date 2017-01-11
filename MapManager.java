@@ -7,23 +7,23 @@ class MapManager {
     private Drawable drawer;
     private JSONObject map_obj = new JSONObject();
     private JSONArray layer_obj_array;
-    private ArrayList <TileLayer> tile_layer_list = new ArrayList<TileLayer>();
+    private ArrayList<TileLayer> tile_layer_list = new ArrayList<TileLayer>();
     private TileLayer col_layer;
     private ObjectLayer obj_layer;    
     private int height;
     private int width;
     private int tile_height;
     private int tile_width;
-    private PApplet pApplet;
+    private PApplet app;
 
     public MapManager(PApplet p, String path, String name) {
 	drawer = new DrawPImage(p, path, "Map");
-	pApplet = p;
+	app = p;
 	loadMap(name);
     }
 
     void loadMap(String file_name) {
-	map_obj = pApplet.loadJSONObject(file_name + ".json");
+	map_obj = app.loadJSONObject(file_name + ".json");
 
 	tile_width = map_obj.getInt("tilewidth");
 	tile_height = map_obj.getInt("tileheight");
@@ -53,13 +53,17 @@ class MapManager {
 	}
     }
 
-    Vec2 posToTile(Vec2 pos) {
+    public JSONArray getGameObjectData(){
+	return obj_layer.getObjects();
+    }
+
+    public Vec2 posToTile(Vec2 pos) {
 	Vec2 p = pos;
 	p.set(pos.x/(double)tile_width, pos.y/(double)tile_height);
 	return p;
     }
 
-    Vec2 tileToPos(int idx){
+    public Vec2 tileToPos(int idx){
 	return new Vec2((double)((idx%width)*tile_width),(double)((idx/width)*tile_height));
     }
 

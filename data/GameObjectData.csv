@@ -1,2 +1,2 @@
-GameObjectID,ImageID,HP,Power,MoveType,AttackType,Tag,SizeX,SizeY,Gravity
-0,0,10,0,0,0,ENEMY,30,30,TRUE
+GameObjectID,ImageID,HP,Power,MoveType,AttackType,Tag,Gravity
+0,0,10,0,0,0,ENEMY,TRUE
