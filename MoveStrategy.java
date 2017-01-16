@@ -33,6 +33,11 @@ enum MoveType {
 	},
 	M1 {      
 	    void move(PosInfo pos_info, int cnt) {
+		pos_info.setVel(0,pos_info.getVel().y);
+	    }
+	},
+	M2 {      
+	    void move(PosInfo pos_info, int cnt) {
 		double x = pos_info.getVel().x;
 		if(x == 0) pos_info.setVel(-2.0, pos_info.getVel().y);
 		if(pos_info.isColDir(PosInfo.LEFT) || pos_info.isColDir(PosInfo.RIGHT)) pos_info.setVel(-x, pos_info.getVel().y);

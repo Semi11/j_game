@@ -30,9 +30,8 @@ class GameObjectFactory {
 	g.setHp(Integer.parseInt(data.get("HP")));
 	g.setPower(Integer.parseInt(data.get("Power")));
 	g.setMoveType(data.get("MoveType"));
+	g.setCollisionType(data.get("CollisionType"));
 	g.setTag(data.get("Tag"));
-	//g.setSize(Double.parseDouble(data.get("SizeX")), Double.parseDouble(data.get("SizeY")));
-	g.setGravity(Boolean.valueOf(data.get("Gravity")));
 
 	return g;
     }
@@ -72,7 +71,7 @@ class GameObjectManager {
     public void update() {
 	for (GameObject g : g_obj_list) {
 	    g.update();
-	    if (g.isGravity() && !g.getPosInfo().isColDir(PosInfo.DOWN)) {
+	    if (!g.getPosInfo().isColDir(PosInfo.DOWN)) {
 		g.getPosInfo().setAcc(0.0, 0.5);
 	    }else{
 		g.getPosInfo().setAcc(0, 0);

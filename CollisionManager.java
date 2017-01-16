@@ -9,10 +9,17 @@ class CollisionManager {
 	this.g_obj_list = g_obj_list;
 	this.map_manager = map_manager;
     }
-
+    
     public void update() {
 	for (GameObject g : g_obj_list) {
 	    collisionTestMap(g.getPosInfo());
+	}
+	for (GameObject g : g_obj_list) {
+	    for (GameObject other : g_obj_list) {
+		if(!g.equals(other)){
+		    collisionTestObject(g,other);
+		}
+	    }
 	}
     }
 
@@ -45,5 +52,22 @@ class CollisionManager {
 	    pos_info.setVel(vel.x, 0.0);
 	}
      
+    }
+    
+    protected void collisionTestObject(GameObject g_objA, GameObject g_objB) {
+	PosInfo pos_infoA = g_objA.getPosInfo();
+	PosInfo pos_infoB = g_objB.getPosInfo();
+	Vec2 sizeA = new Vec2(pos_infoA.getSize().x/2.0, pos_infoA.getSize().y/2.0);
+	Vec2 sizeB = new Vec2(pos_infoB.getSize().x/2.0, pos_infoB.getSize().y/2.0);
+	Vec2 center_posA = new Vec2(pos_infoA.getPos().x + sizeA.x, pos_infoA.getPos().y + sizeA.y);
+	Vec2 center_posB = new Vec2(pos_infoB.getPos().x + sizeB.x, pos_infoB.getPos().y + sizeB.y);
+
+	if(Math.abs(center_posA.x - center_posB.x) < (sizeA.x + sizeB.x)
+	   &&
+	   Math.abs(center_posA.y - center_posB.y) < (sizeA.y + sizeB.y)){
+	    g_objA.collsion(g_objB);
+	    g_objB.collsion(g_objA);
+	}
+
     }
 }

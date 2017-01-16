@@ -41,7 +41,6 @@ class CSVReader {
 
           if (is_set_hedder) {
             tmp_map.put(hedder_words.get(word_idx), word);
-            ret.add(tmp_map);
           } else {
             hedder_words.add(word);
             
@@ -49,7 +48,13 @@ class CSVReader {
           word_idx++;
           idx_from = idx_to+1;
         }
-        is_set_hedder = true;
+
+	if (is_set_hedder) {
+	    ret.add(tmp_map);
+	}else{
+	    is_set_hedder = true;
+	}
+
       }
     }
     catch(FileNotFoundException e) {
