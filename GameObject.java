@@ -13,6 +13,7 @@ class GameObject implements Cloneable {
     private int img_id;
     private int cnt;
     private boolean alive;
+    private GameObject player;
 
     public GameObject() {
 	pos_info = new PosInfo();
@@ -69,6 +70,14 @@ class GameObject implements Cloneable {
     public GameObjectTag getTag() {
 	return this.tag; 
     }
+
+    public void setPlayer(GameObject p){
+	this.player = p;
+    }
+
+    public GameObject getPlayer(){
+	return this.player;
+    }
   
     public PosInfo getPosInfo(){
 	return this.pos_info; 
@@ -79,7 +88,7 @@ class GameObject implements Cloneable {
     }
 
     public boolean update() {
-	mover.update(pos_info, cnt);
+	mover.update(this);
 	pos_info.update();
 	return true;
     }

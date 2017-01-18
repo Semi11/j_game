@@ -34,7 +34,9 @@ class StatusInfo {
     }  
 
     public void damage(int power){
-	this.hp -= power;
+	if(this.hp>0){
+	    this.hp -= power;
+	}
     }
 
 }

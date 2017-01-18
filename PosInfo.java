@@ -97,6 +97,7 @@ class PosInfo {
     public void update() {
 	pos = pos.add(vel);
 	vel = vel.add(acc);
-	col_dir = new boolean[DIRECTION];
+	acc.set(0,0);
+	col_dir = new boolean[DIRECTION];	
     }
 }
