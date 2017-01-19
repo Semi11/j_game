@@ -1,6 +1,3 @@
-import processing.core.PConstants;
-import processing.event.Event;
-
 enum CollisionType {
     COLLISION0(CollisionStrategy.C0),
     COLLISION1(CollisionStrategy.C1);

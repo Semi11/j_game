@@ -50,30 +50,31 @@ class GameObjectManager {
 	g_obj_fac = new GameObjectFactory(drawer, path);
 	map_manager = new MapManager(p, path, "map");
 	col_manager = new CollisionManager(g_obj_list, map_manager);
-	player = g_obj_fac.getGameObject(0);
-	g_obj_list.add(player);
-	addGameObject(map_manager.getGameObjectData());
+	add(map_manager.getGameObjectData());
     }
 
-    public void addGameObject(JSONArray g_objects_data){
+    public void add(JSONArray g_objects_data){
 	for(int i=0;i<g_objects_data.size();i++){
 	    JSONObject g_obj_data = g_objects_data.getJSONObject(i);
 	    Vec2 pos = new Vec2(g_obj_data.getFloat("x"),g_obj_data.getFloat("y"));
 	    Vec2 size = new Vec2(g_obj_data.getFloat("width"),g_obj_data.getFloat("height"));
-	    if(g_obj_data.getString("name").equals("player")){
-		player.init(pos,size);
-	    }else{
-		int id = Integer.parseInt(g_obj_data.getString("type"));
-		addGameObject(id,pos,size);
-	    }
+	    int id = Integer.parseInt(g_obj_data.getString("type"));
+	    add(id,pos,size);
 	}
     }
     
-    public void addGameObject(int g_obj_id, Vec2 pos, Vec2 size) {
-	GameObject g = g_obj_fac.getGameObject(g_obj_id);
+    public void add(int g_obj_id, Vec2 pos, Vec2 size) {
+	GameObject g = g_obj_fac.getGameObject(g_obj_id);	
 	g.init(pos, size);
-	g.setPlayer(this.player);
+	g.setManager(this);
 	g_obj_list.add(g);
+	if(g_obj_id == 0){
+	    player = g;
+	}
+    }
+
+    public GameObject getPlayer(){
+	return this.player;
     }
     
     public void update() {
