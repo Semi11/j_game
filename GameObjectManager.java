@@ -30,6 +30,7 @@ class GameObjectFactory {
 	g.setHp(Integer.parseInt(data.get("HP")));
 	g.setPower(Integer.parseInt(data.get("Power")));
 	g.setMoveType(data.get("MoveType"));
+	g.setActType(data.get("ActType"));
 	g.setCollisionType(data.get("CollisionType"));
 	g.setTag(data.get("Tag"));
 
@@ -43,6 +44,7 @@ class GameObjectManager {
     private MapManager map_manager;
     private CollisionManager col_manager;
     private List<GameObject> g_obj_list = new ArrayList<GameObject>();
+    private List<GameObject> add_list = new ArrayList<GameObject>();
     private GameObject player;
 
     public GameObjectManager(PApplet p, String path) {
@@ -59,18 +61,20 @@ class GameObjectManager {
 	    Vec2 pos = new Vec2(g_obj_data.getFloat("x"),g_obj_data.getFloat("y"));
 	    Vec2 size = new Vec2(g_obj_data.getFloat("width"),g_obj_data.getFloat("height"));
 	    int id = Integer.parseInt(g_obj_data.getString("type"));
-	    add(id,pos,size);
+	    if(g_obj_data.getString("name").equals("player")){
+		player = add(id,pos,size);
+	    }else{
+		add(id,pos,size);
+	    }
 	}
     }
     
-    public void add(int g_obj_id, Vec2 pos, Vec2 size) {
+    public GameObject add(int g_obj_id, Vec2 pos, Vec2 size) {
 	GameObject g = g_obj_fac.getGameObject(g_obj_id);	
 	g.init(pos, size);
 	g.setManager(this);
-	g_obj_list.add(g);
-	if(g_obj_id == 0){
-	    player = g;
-	}
+	add_list.add(g);
+	return g;
     }
 
     public GameObject getPlayer(){
@@ -85,6 +89,11 @@ class GameObjectManager {
 	    }
 	}
 	col_manager.update();
+
+	for (GameObject g : add_list) {
+	    g_obj_list.add(g);
+	}
+	gadd_list = new 
     }
     
     public void draw() {

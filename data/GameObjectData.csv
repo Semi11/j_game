@@ -1,3 +1,4 @@
-GameObjectID,ImageID,HP,Power,MoveType,AttackType,CollisionType,Tag
+GameObjectID,ImageID,HP,Power,MoveType,ActType,CollisionType,Tag
 0,0,3,0,0,0,0,PLAYER
 1,0,3,1,1,1,1,ENEMY
+2,0,3,1,2,0,1,ENEMY

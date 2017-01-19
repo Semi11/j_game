@@ -6,6 +6,7 @@ class GameObject implements Cloneable {
     private PosInfo pos_info;
     private StatusInfo sta_info;
     private MoveType mover;
+    private ActType acter;
     private CollisionType collisioner;
     private Drawable drawer;
     private GameObjectTag tag;
@@ -59,6 +60,10 @@ class GameObject implements Cloneable {
 	this.mover = MoveType.valueOf("MOVE"+type);
     }
 
+    public void setActType(String type) {
+	this.acter = ActType.valueOf("ACT"+type);
+    }
+
     public void setCollisionType(String type) {
 	this.collisioner = CollisionType.valueOf("COLLISION"+type);
     }
@@ -75,7 +80,7 @@ class GameObject implements Cloneable {
 	this.manager = m;
     }
 
-    public GameObjectManager getManaer(){
+    public GameObjectManager getManager(){
 	return this.manager;
     }
   
@@ -87,10 +92,17 @@ class GameObject implements Cloneable {
 	return this.sta_info; 
     }
 
+    public int getCount(){
+	return this.cnt;
+    }
+
     public boolean update() {
-	mover.update(this);
+	mover.move(this);
 	pos_info.update();
-	return true;
+	acter.act(this);
+	cnt++;
+	if(sta_info.getHp()<=0)alive=false;
+	return alive;
     }
 
     public void draw() {

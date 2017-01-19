@@ -3,7 +3,8 @@ import processing.event.Event;
 
 enum MoveType {
     MOVE0(MoveStrategy.M0), 
-    MOVE1(MoveStrategy.M1);
+    MOVE1(MoveStrategy.M1),
+    MOVE2(MoveStrategy.M2);
 
     private MoveStrategy type;
 
@@ -11,7 +12,7 @@ enum MoveType {
 	this.type = type;
     }
 
-    public void update(GameObject g_obj) {
+    public void move(GameObject g_obj) {
 	this.type.move(g_obj);
     }
 
@@ -41,9 +42,7 @@ enum MoveType {
 	M2 {      
 	    void move(GameObject g_obj) {
 		PosInfo pos_info = g_obj.getPosInfo();
-		double x = pos_info.getVel().x;
-		if(x == 0) pos_info.setVel(-2.0, pos_info.getVel().y);
-		if(pos_info.isColDir(PosInfo.LEFT) || pos_info.isColDir(PosInfo.RIGHT)) pos_info.setVel(-x, pos_info.getVel().y);
+		pos_info.setAcc(0,0);		
 	    }
 	};
 	
