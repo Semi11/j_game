@@ -62,6 +62,11 @@ class PosInfo {
 	return this.pos;
     }
 
+    public Vec2 getCenterPos() {
+	return this.pos.add(this.size.half());
+    }
+
+
     public Vec2 getVel() {
 	return this.vel;
     }

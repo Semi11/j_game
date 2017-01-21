@@ -96,6 +96,14 @@ class MapManager {
     public int getTileHeight(){
 	return tile_height;
     }
+    
+    public int getStageWidth(){
+	return width * tile_width;
+    }
+    
+    public int getStageHeight(){
+	return height * tile_height;
+    }    
 
     void draw() {
 

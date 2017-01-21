@@ -29,5 +29,9 @@ class Vec2 {
   public Vec2 div(Vec2 v){
     return new Vec2(x / v.x, y / v.y);
   }
-  
+
+  public Vec2 half(){
+    return new Vec2(x / 2.0, y / 2.0);
+  }  
+    
 }

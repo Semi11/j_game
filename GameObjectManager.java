@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import processing.core.PApplet;
 import processing.data.JSONObject;
 import processing.data.JSONArray;
@@ -82,18 +83,23 @@ class GameObjectManager {
     }
     
     public void update() {
-	for (GameObject g : g_obj_list) {
-	    g.update();
-	    if (!g.getPosInfo().isColDir(PosInfo.DOWN)) {
-		g.getPosInfo().setAcc(0.0, 0.5);
+	Iterator<GameObject> ite = g_obj_list.iterator();
+	while(ite.hasNext()){
+	    GameObject g = ite.next();
+	    if(g.update()){
+		if (!g.getPosInfo().isColDir(PosInfo.DOWN)) {
+		    g.getPosInfo().setAcc(0.0, 0.5);
+		}
+	    }else{
+		ite.remove();
 	    }
 	}
 	col_manager.update();
-
+	
 	for (GameObject g : add_list) {
 	    g_obj_list.add(g);
 	}
-	gadd_list = new 
+	add_list.clear();
     }
     
     public void draw() {

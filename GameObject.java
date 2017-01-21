@@ -113,7 +113,11 @@ class GameObject implements Cloneable {
 	this.collisioner.collision(this, other);
     }
 
-    boolean isAlive() {
+    public boolean isAlive() {
 	return alive;
+    }
+
+    public void kill(){
+	this.sta_info.setHp(0);
     }
 }
