@@ -23,7 +23,7 @@ class MapManager {
     }
 
     void loadMap(String file_name) {
-	map_obj = app.loadJSONObject(file_name + ".json");
+	map_obj = app.loadJSONObject("MapData/" + file_name + ".json");
 
 	tile_width = map_obj.getInt("tilewidth");
 	tile_height = map_obj.getInt("tileheight");
