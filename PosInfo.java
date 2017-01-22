@@ -9,6 +9,7 @@ class PosInfo {
     private Vec2 acc;
     private Vec2 size;
     private boolean[] col_dir = new boolean[DIRECTION];
+    private boolean[] dir = new boolean[DIRECTION];
     private double rad;//rad
     private double speed;
 
@@ -66,7 +67,6 @@ class PosInfo {
 	return this.pos.add(this.size.half());
     }
 
-
     public Vec2 getVel() {
 	return this.vel;
     }
@@ -88,36 +88,12 @@ class PosInfo {
     }
 
     public boolean isFacing(int dir){
-	switch(dir){
-	case RIGHT:
-	    if(0<rad && rad<Math.PI/2.0 ||
-	       (Math.PI + Math.PI/2.0)<rad && rad< Math.PI*2.0){
-		return true; 
-	    }
-	    break;
-	case LEFT:
-	    if(Math.PI/2.0<rad && rad<(Math.PI + Math.PI/2.0)){
-		return true;
-	    }
-	    break;
-	case UP:
-	    if(Math.PI<rad && rad<Math.PI*2.0){
-		return true;
-	    }
-	    break;
-	case DOWN:
-	    if(0<rad && rad<Math.PI){
-		return true;
-	    }
-	    break;
-	default:break;
-	}
-	return false;
+	if(0>dir || dir>=DIRECTION)return false;
+	return this.dir[dir];	
     }
 
     public boolean colDir(int dir){
 	if(0>dir || dir>=DIRECTION)return false;
-	
 	col_dir[dir]=true;
 	return true;
     }
@@ -134,12 +110,39 @@ class PosInfo {
 	return false;
     }
 
+    protected void updateDir(){
+	col_dir = new boolean[DIRECTION];	
+	//right
+	if(0<rad && rad<Math.PI/2.0 ||
+	   (Math.PI + Math.PI/2.0)<rad && rad< Math.PI*2.0){
+	    dir[RIGHT] = true;
+	    dir[LEFT] = false;
+	}
+	
+	//left
+	if(Math.PI/2.0<rad && rad<(Math.PI + Math.PI/2.0)){
+	    dir[LEFT] = true;
+	    dir[RIGHT] = false;
+	}
+
+	//up
+	if(Math.PI<rad && rad<Math.PI*2.0){
+	    dir[UP] = true;
+	    dir[DOWN] = false;
+	}
+
+	//down
+	if(0<rad && rad<Math.PI){
+	    dir[DOWN] = true;
+	    dir[UP] = false;
+	}
+    }
     
     public void update() {
 	pos = pos.add(vel);
 	vel = vel.add(acc);
 	acc.set(0,0);
-	if(!vel.equals(new Vec2(0,0))) rad = vel.getRad();
-	col_dir = new boolean[DIRECTION];	
+        rad = vel.getRad();
+	updateDir();
     }
 }

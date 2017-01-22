@@ -69,20 +69,20 @@ class CollisionManager {
      
     }
     
-    protected void collisionTestObject(GameObject g_objA, GameObject g_objB) {
-	PosInfo pos_infoA = g_objA.getPosInfo();
-	PosInfo pos_infoB = g_objB.getPosInfo();
-	Vec2 sizeA = new Vec2(pos_infoA.getSize().x/2.0, pos_infoA.getSize().y/2.0);
-	Vec2 sizeB = new Vec2(pos_infoB.getSize().x/2.0, pos_infoB.getSize().y/2.0);
-	Vec2 center_posA = pos_infoA.getCenterPos();
-	Vec2 center_posB = pos_infoB.getCenterPos();
+    protected void collisionTestObject(GameObject g_obj, GameObject other) {
+	if(g_obj.getTag() == other.getTag())return;
 	
-	if(Math.abs(center_posA.x - center_posB.x) < (sizeA.x + sizeB.x)
+	PosInfo pos_info = g_obj.getPosInfo();
+	PosInfo other_pos_info = other.getPosInfo();
+	Vec2 size = new Vec2(pos_info.getSize().x/2.0, pos_info.getSize().y/2.0);
+	Vec2 other_size = new Vec2(other_pos_info.getSize().x/2.0, other_pos_info.getSize().y/2.0);
+	Vec2 center_pos = pos_info.getCenterPos();
+	Vec2 other_center_pos = other_pos_info.getCenterPos();
+
+	if(Math.abs(center_pos.x - other_center_pos.x) < (size.x + other_size.x)
 	   &&
-	   Math.abs(center_posA.y - center_posB.y) < (sizeA.y + sizeB.y)){
-	    System.out.println("hit");
-	    g_objA.collsion(g_objB);
-	    //g_objB.collsion(g_objA);
+	   Math.abs(center_pos.y - other_center_pos.y) < (size.y + other_size.y)){
+	    g_obj.collsion(other);
 	}
 
     }
