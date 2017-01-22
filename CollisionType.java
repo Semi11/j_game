@@ -39,8 +39,7 @@ public enum CollisionType {
 		    C1.collision(g_obj, other);
 		}
 	    }
-	};
-	
+	};	
 	abstract void collision(GameObject g_obj, GameObject other);
     }
 }

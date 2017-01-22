@@ -57,6 +57,7 @@ public enum MoveType {
 		if(pos_info.isColWall()){
 		    pos_info.setVel(-pos_info.getVel().x, pos_info.getVel().y);
 		    g_obj.setTag("ENEMY");
+		    pos_info.setPos(pos_info.getPos().add(pos_info.getVel()));
 		}
 	    }
 	};

@@ -1,7 +1,7 @@
 ActionGame ag;
 
 void settings(){
-    size(1000, 1000);
+    size(960, 640);
 }
 
 void setup() {

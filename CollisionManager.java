@@ -45,10 +45,10 @@ class CollisionManager {
 	Vec2 tile_pos = map_manager.getTileCollision(pos_info,new Vec2(pos.x,pos.y-vel.y));
 	if (tile_pos!=null) {
 	    if (vel.x > 0) {
-		pos.x = tile_pos.x-size.x;
+		if(col_stage)pos.x = tile_pos.x-size.x;
 		pos_info.colDir(PosInfo.RIGHT);
 	    } else if (vel.x < 0) {
-		pos.x = tile_pos.x+map_manager.getTileWidth();
+		if(col_stage)pos.x = tile_pos.x+map_manager.getTileWidth();
 		pos_info.colDir(PosInfo.LEFT);
 	    }
 	    if(col_stage)pos_info.setVel(0.0, vel.y);
@@ -58,10 +58,10 @@ class CollisionManager {
 	tile_pos =  map_manager.getTileCollision(pos_info,new Vec2(pos.x-vel.x,pos.y));
 	if (tile_pos != null) {
 	    if (vel.y > 0) {
-		pos.y = tile_pos.y-size.y;
+		if(col_stage)pos.y = tile_pos.y-size.y;
 		pos_info.colDir(PosInfo.DOWN);
 	    } else if (vel.y < 0) {
-		pos.y = tile_pos.y+map_manager.getTileHeight()+1;
+		if(col_stage)pos.y = tile_pos.y+map_manager.getTileHeight()+1;
 		pos_info.colDir(PosInfo.UP);
 	    }
 	    if(col_stage)pos_info.setVel(vel.x, 0.0);
@@ -80,7 +80,9 @@ class CollisionManager {
 	if(Math.abs(center_posA.x - center_posB.x) < (sizeA.x + sizeB.x)
 	   &&
 	   Math.abs(center_posA.y - center_posB.y) < (sizeA.y + sizeB.y)){
+	    System.out.println("hit");
 	    g_objA.collsion(g_objB);
+	    //g_objB.collsion(g_objA);
 	}
 
     }

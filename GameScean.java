@@ -8,6 +8,7 @@ class GameScean implements Scean{
     private String data_path;
     private int stage_num;
     private GameObject player;
+    private GameObject boss;
     
     public GameScean(PApplet app, String path){
 	this.app =app;
@@ -23,13 +24,14 @@ class GameScean implements Scean{
 	
 	g_obj_manager.add(map_manager.getGameObjectData());
 	player = g_obj_manager.getPlayer();
+	boss = g_obj_manager.getBoss();
     }
 
     public void update(){
 	if(!player.isAlive())stageInit();
+	if(!boss.isAlive()){stage_num++;stageInit();}
 	g_obj_manager.update();
 	col_manager.update();
-
     }
 
     public void draw(){

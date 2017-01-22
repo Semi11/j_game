@@ -47,6 +47,10 @@ public class GameObjectManager {
     public GameObject getPlayer(){
 	return this.player;
     }
+
+    public GameObject getBoss(){
+	return this.boss;
+    }
     
     public void update() {
 	Iterator<GameObject> ite = g_obj_list.iterator();
