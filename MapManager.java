@@ -16,8 +16,8 @@ class MapManager {
     private int tile_width;
     private PApplet app;
 
-    public MapManager(PApplet p, String path, String name) {
-	drawer = new DrawPImage(p, path, "Map");
+    public MapManager(PApplet p, String path, String name, PosInfo screan) {
+	drawer = new DrawPImage(p, path, "Map", screan);
 	app = p;
 	loadMap(name);
     }

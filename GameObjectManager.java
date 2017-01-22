@@ -12,8 +12,8 @@ public class GameObjectManager {
     private GameObject player;
     private GameObject boss;
 
-    public GameObjectManager(PApplet p, String path) {
-	g_obj_fac = new GameObjectFactory(new DrawPImage(p, path, "GameObject"), path);	
+    public GameObjectManager(PApplet p, String path, PosInfo screan) {
+	g_obj_fac = new GameObjectFactory(new DrawPImage(p, path, "GameObject", screan), path);	
     }
 
     public void add(JSONArray g_objects_data){

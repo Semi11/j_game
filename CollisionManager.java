@@ -4,10 +4,12 @@ import java.util.ArrayList;
 class CollisionManager {
     List<GameObject> g_obj_list;
     MapManager map_manager;
+    PosInfo screan;
 
-    public CollisionManager(List<GameObject> g_obj_list, MapManager map_manager) {
+    public CollisionManager(List<GameObject> g_obj_list, MapManager map_manager, PosInfo screan) {
 	this.g_obj_list = g_obj_list;
 	this.map_manager = map_manager;
+	this.screan = screan;
     }
     
     public void update() {
@@ -15,6 +17,8 @@ class CollisionManager {
 	    PosInfo pi = g.getPosInfo();
 	    if(isInStage(pi)){
 		collisionTestMap(pi, g.isColisionStage());
+		if(isInScrean(pi))g.activate();
+		else g.inactivate();
 	    }else{g.kill();}
 	}
 	for (GameObject g : g_obj_list) {
@@ -71,19 +75,32 @@ class CollisionManager {
     
     protected void collisionTestObject(GameObject g_obj, GameObject other) {
 	if(g_obj.getTag() == other.getTag())return;
-	
-	PosInfo pos_info = g_obj.getPosInfo();
-	PosInfo other_pos_info = other.getPosInfo();
-	Vec2 size = new Vec2(pos_info.getSize().x/2.0, pos_info.getSize().y/2.0);
-	Vec2 other_size = new Vec2(other_pos_info.getSize().x/2.0, other_pos_info.getSize().y/2.0);
+
+	if(collsionTestRect(g_obj.getPosInfo(), other.getPosInfo())){
+	    g_obj.collsion(other);
+	}
+    }
+
+    protected boolean isInScrean(PosInfo pos_info){
+	PosInfo s = new PosInfo();
+	s.setPos(screan.getPos().reverse());
+	s.setSize(screan.getSize());
+	return collsionTestRect(pos_info, s);
+    }
+    
+    protected boolean collsionTestRect(PosInfo pos_info, PosInfo other_pos_info){
+	Vec2 size = pos_info.getSize().half();
+	Vec2 other_size = other_pos_info.getSize().half();
 	Vec2 center_pos = pos_info.getCenterPos();
 	Vec2 other_center_pos = other_pos_info.getCenterPos();
-
+	
 	if(Math.abs(center_pos.x - other_center_pos.x) < (size.x + other_size.x)
 	   &&
 	   Math.abs(center_pos.y - other_center_pos.y) < (size.y + other_size.y)){
-	    g_obj.collsion(other);
+	    return true;
 	}
-
+	
+	return false;
     }
+
 }

@@ -16,6 +16,7 @@ class GameObject implements Cloneable {
     private boolean alive;
     private GameObjectManager manager;
     private boolean col_stage;
+    private boolean active;
 
     public GameObject() {
 	pos_info = new PosInfo();
@@ -31,6 +32,7 @@ class GameObject implements Cloneable {
 	pos_info.setPos(pos);
 	pos_info.setSize(size);
 	alive = true;
+	active = false;
     }
 
     public void setDrawer(Drawable d) {
@@ -106,6 +108,7 @@ class GameObject implements Cloneable {
     }
 
     public boolean update() {
+	if(!active)return alive;
 	mover.move(this);
 	pos_info.update();
 	acter.act(this);
@@ -115,6 +118,7 @@ class GameObject implements Cloneable {
     }
 
     public void draw() {
+	//	if(!active)return;
 	drawer.draw(img_id, pos_info);
     }
 
@@ -129,4 +133,17 @@ class GameObject implements Cloneable {
     public void kill(){
 	this.sta_info.setHp(0);
     }
+    
+    public void activate(){
+	this.active = true;
+    }
+    
+    public void inactivate(){
+	this.active = false;
+    }
+    
+    public boolean isActive(){
+	return this.active;
+    }
+    
 }
