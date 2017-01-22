@@ -7,6 +7,7 @@ class GameScean implements Scean{
     private CollisionManager col_manager;
     private String data_path;
     private int stage_num;
+    private GameObject player;
     
     public GameScean(PApplet app, String path){
 	this.app =app;
@@ -21,11 +22,14 @@ class GameScean implements Scean{
 	col_manager = new CollisionManager(g_obj_manager.getObjects(), map_manager);
 	
 	g_obj_manager.add(map_manager.getGameObjectData());
+	player = g_obj_manager.getPlayer();
     }
 
     public void update(){
+	if(!player.isAlive())stageInit();
 	g_obj_manager.update();
 	col_manager.update();
+
     }
 
     public void draw(){

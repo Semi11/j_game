@@ -1,6 +1,9 @@
+import java.awt.event.KeyEvent;
+
 enum ActType {
     ACT0(ActStrategy.A0),
-    ACT1(ActStrategy.A1);
+    ACT1(ActStrategy.A1),
+    ACT2(ActStrategy.A2);
 
     private ActStrategy type;
 
@@ -13,11 +16,25 @@ enum ActType {
     }
 
     private enum ActStrategy {
-	A0 {      
-	    void act(GameObject g_obj) {			
+	//player
+	A0 {
+	    void act(GameObject g_obj) {		
+		if(InputManager.INSTANCE.getKeyDownTime(KeyEvent.VK_Z) == 1){
+		    PosInfo pos_info = g_obj.getPosInfo();
+		    Vec2 size = new Vec2(20,10);
+		    Vec2 pos = pos_info.getCenterPos().sub(size.half());
+		    GameObject b = g_obj.getManager().add(3,pos,size);
+		    
+		    if(pos_info.isFacing(PosInfo.LEFT)){
+			b.getPosInfo().setVel(-5.0,0);
+		    }else{
+			b.getPosInfo().setVel(5.0,0);
+		    }
+		}
 	    }
 	},
-	A1 {      
+	//enemy
+	A1 {    
 	    void act(GameObject g_obj) {
 		if((g_obj.getCount() % 180) == 0){
 		    PosInfo pos_info = g_obj.getPosInfo();
@@ -28,6 +45,11 @@ enum ActType {
 		    b1.getPosInfo().setVel(2.5,0);
 		    b2.getPosInfo().setVel(-2.5,0);
 		}
+	    }
+	},
+	//bullet
+	A2 {    
+	    void act(GameObject g_obj) {
 	    }
 	};
 	

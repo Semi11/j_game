@@ -1,6 +1,7 @@
-enum CollisionType {
+public enum CollisionType {
     COLLISION0(CollisionStrategy.C0),
-    COLLISION1(CollisionStrategy.C1);
+    COLLISION1(CollisionStrategy.C1),
+    COLLISION2(CollisionStrategy.C2);
 
     private CollisionStrategy type;
 
@@ -13,15 +14,25 @@ enum CollisionType {
     }
 
     private enum CollisionStrategy {
+	//player
 	C0 {      
 	    void collision(GameObject g_obj, GameObject other) {	
 	    }
 	},
+	//enemy & enemy bullet
 	C1 {      
 	    void collision(GameObject g_obj, GameObject other) {
 		if(other.getTag() == GameObjectTag.PLAYER){
 		    other.getStatusInfo().damage(g_obj.getStatusInfo().getPower());
-		    System.out.println(other.getStatusInfo().getHp());
+		}
+	    }
+	},
+	//player bullet
+	C2 {      
+	    void collision(GameObject g_obj, GameObject other) {	
+		if(other.getTag() == GameObjectTag.ENEMY){
+		    other.getStatusInfo().damage(g_obj.getStatusInfo().getPower());
+		    g_obj.getStatusInfo().damage(g_obj.getStatusInfo().getPower());
 		}
 	    }
 	};

@@ -19,7 +19,6 @@ public enum InputManager {
 
     public void keyPressed(KeyEvent e){
 	int key = e.getKeyCode();
-
 	if(key >= 0 && key < 256){
 	    key_state_up[key] = false;
 	    key_state_down[key] = true;
@@ -30,7 +29,6 @@ public enum InputManager {
     
     public void keyReleased(KeyEvent e){
 	int key = e.getKeyCode();
-
 	if(key >= 0 && key < 256){
 	    keys[key] = 0;
 	    key_state_up[key] = true;
@@ -41,10 +39,6 @@ public enum InputManager {
     }
 
     public void keyTyped(KeyEvent e){}
-    
-    public int getKeyDownTime(int key){
-	return keys[key];
-    }
 
     public boolean isKeyUp(int key){
 	return key_state_up[key];
@@ -62,9 +56,14 @@ public enum InputManager {
 	return keyPressed;
     }
 
+    public int getKeyDownTime(int key){
+	System.out.println(keys[key]);
+	return keys[key];
+    }
+
     public void update(){
 	for(int i=0;i<key_state_up.length;i++){
-	    if(key_state_up[i]){
+	    if(key_state_down[i]){
 		keys[i]++;
 	    }
 	}

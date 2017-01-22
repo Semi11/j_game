@@ -8,8 +8,8 @@ class PosInfo {
     private Vec2 vel;
     private Vec2 acc;
     private Vec2 size;
-    private double dir;
     private boolean[] col_dir = new boolean[DIRECTION];
+    private double rad;//rad
     private double speed;
 
     public PosInfo() {
@@ -30,7 +30,7 @@ class PosInfo {
 	vel = new Vec2();
 	acc = new Vec2();
 	size = new Vec2();
-	this.dir = ang;
+	this.rad = ang;
 	this.speed = speed;
     }
 
@@ -79,12 +79,40 @@ class PosInfo {
 	return this.size;
     }
 
-    public double getDir() {
-	return this.dir;
+    public double getRad() {
+	return this.rad;
     }
 
     public double getSpe() {
 	return this.speed;
+    }
+
+    public boolean isFacing(int dir){
+	switch(dir){
+	case RIGHT:
+	    if(0<rad && rad<Math.PI/2.0 ||
+	       (Math.PI + Math.PI/2.0)<rad && rad< Math.PI*2.0){
+		return true; 
+	    }
+	    break;
+	case LEFT:
+	    if(Math.PI/2.0<rad && rad<(Math.PI + Math.PI/2.0)){
+		return true;
+	    }
+	    break;
+	case UP:
+	    if(Math.PI<rad && rad<Math.PI*2.0){
+		return true;
+	    }
+	    break;
+	case DOWN:
+	    if(0<rad && rad<Math.PI){
+		return true;
+	    }
+	    break;
+	default:break;
+	}
+	return false;
     }
 
     public boolean colDir(int dir){
@@ -103,6 +131,7 @@ class PosInfo {
 	pos = pos.add(vel);
 	vel = vel.add(acc);
 	acc.set(0,0);
+	if(!vel.equals(new Vec2(0,0))) rad = vel.getRad();
 	col_dir = new boolean[DIRECTION];	
     }
 }

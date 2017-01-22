@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
 
-
 class CollisionManager {
     List<GameObject> g_obj_list;
     MapManager map_manager;
@@ -52,7 +51,7 @@ class CollisionManager {
 		pos.x = tile_pos.x+map_manager.getTileWidth();
 		pos_info.colDir(PosInfo.LEFT);
 	    }
-	    pos_info.setVel(0.0, vel.y);
+	    //pos_info.setVel(0.0, vel.y);
 	}
 	
 	//y
@@ -65,7 +64,7 @@ class CollisionManager {
 		pos.y = tile_pos.y+map_manager.getTileHeight()+1;
 		pos_info.colDir(PosInfo.UP);
 	    }
-	    pos_info.setVel(vel.x, 0.0);
+	    //pos_info.setVel(vel.x, 0.0);
 	}
      
     }

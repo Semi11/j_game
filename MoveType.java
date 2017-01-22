@@ -1,7 +1,6 @@
 import processing.core.PConstants;
-import processing.event.Event;
 
-enum MoveType {
+public enum MoveType {
     MOVE0(MoveStrategy.M0), 
     MOVE1(MoveStrategy.M1),
     MOVE2(MoveStrategy.M2);
@@ -17,6 +16,7 @@ enum MoveType {
     }
 
     private enum MoveStrategy {
+	//player
 	M0 {      
 	    void move(GameObject g_obj) {
 		PosInfo pos_info = g_obj.getPosInfo();
@@ -29,16 +29,20 @@ enum MoveType {
 		}
 		
 		if(InputManager.INSTANCE.isKeyDown(PConstants.UP) && !pos_info.isColDir(PosInfo.UP) && pos_info.isColDir(PosInfo.DOWN)){
-		    pos_info.setVel(pos_info.getVel().x, -10.0);
+ 		    pos_info.setVel(pos_info.getVel().x, -10.0);
+		}else if(pos_info.isColDir(PosInfo.DOWN)){
+		    pos_info.setVel(pos_info.getVel().x,0);
 		}
 	    }
 	},
+	//enemy
 	M1 {      
 	    void move(GameObject g_obj) {
 		PosInfo pos_info = g_obj.getPosInfo();
-		pos_info.setVel(0,pos_info.getVel().y);
+		pos_info.setVel(0,0);
 	    }
 	},
+	//bullet
 	M2 {      
 	    void move(GameObject g_obj) {
 		PosInfo pos_info = g_obj.getPosInfo();

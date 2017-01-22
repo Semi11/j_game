@@ -10,6 +10,7 @@ public class GameObjectManager {
     private List<GameObject> g_obj_list = new ArrayList<GameObject>();
     private List<GameObject> add_list = new ArrayList<GameObject>();
     private GameObject player;
+    private GameObject boss;
 
     public GameObjectManager(PApplet p, String path) {
 	g_obj_fac = new GameObjectFactory(new DrawPImage(p, path, "GameObject"), path);	
@@ -23,6 +24,8 @@ public class GameObjectManager {
 	    int id = Integer.parseInt(g_obj_data.getString("type"));
 	    if(g_obj_data.getString("name").equals("player")){
 		player = add(id,pos,size);
+	    }else if(g_obj_data.getString("name").equals("boss")){
+		boss = add(id,pos,size);
 	    }else{
 		add(id,pos,size);
 	    }
