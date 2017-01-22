@@ -113,7 +113,7 @@ class GameObject implements Cloneable {
 	pos_info.update();
 	acter.act(this);
 	cnt++;
-	if(sta_info.getHp()<=0)alive=false;
+	if(sta_info.getHp()==0)alive=false;
 	return alive;
     }
 

@@ -16,7 +16,6 @@ class StatusInfo {
     }
 
     public void setHp(int hp) {
-	if(hp<0)hp=1;
 	this.hp=hp;
     }
   
@@ -36,6 +35,7 @@ class StatusInfo {
     public void damage(int power){
 	if(this.hp>0){
 	    this.hp -= power;
+	    this.hp = Math.max(0,this.hp);
 	}
     }
 
