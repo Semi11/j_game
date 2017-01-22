@@ -1,5 +1,5 @@
-Name,GameObjectID,ImageID,HP,Power,MoveType,ActType,CollisionType,Tag
-player,0,0,3,0,0,0,0,PLAYER
-enemy0,1,0,3,1,1,1,1,ENEMY
-enemy_bullet0,2,0,1,1,2,2,1,ENEMY
-player_bullet,3,0,1,1,2,2,2,PLAYER
+Name,GameObjectID,ImageID,HP,Power,MoveType,ActType,CollisionType,Tag,CollisionStage
+player,0,0,3,1,0,0,0,PLAYER,TRUE
+enemy0,1,0,3,1,1,1,1,ENEMY,TRUE
+enemy_bullet0,2,0,1,1,2,2,1,ENEMY,FALSE
+player_bullet,3,0,1,1,3,2,2,PLAYER,FALSE

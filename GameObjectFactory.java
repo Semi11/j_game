@@ -30,6 +30,7 @@ public class GameObjectFactory {
 	g.setActType(data.get("ActType"));
 	g.setCollisionType(data.get("CollisionType"));
 	g.setTag(data.get("Tag"));
+	g.setCollisionStage(Boolean.valueOf(data.get("CollisionStage")));
 
 	return g;
     }

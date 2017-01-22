@@ -15,6 +15,7 @@ class GameObject implements Cloneable {
     private int cnt;
     private boolean alive;
     private GameObjectManager manager;
+    private boolean col_stage;
 
     public GameObject() {
 	pos_info = new PosInfo();
@@ -80,6 +81,10 @@ class GameObject implements Cloneable {
 	this.manager = m;
     }
 
+    public void setCollisionStage(boolean b){
+	this.col_stage = b;
+    }
+
     public GameObjectManager getManager(){
 	return this.manager;
     }
@@ -94,6 +99,10 @@ class GameObject implements Cloneable {
 
     public int getCount(){
 	return this.cnt;
+    }
+
+    public boolean isColisionStage(){
+	return this.col_stage;
     }
 
     public boolean update() {

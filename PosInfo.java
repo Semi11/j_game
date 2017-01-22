@@ -126,6 +126,14 @@ class PosInfo {
 	if(0>dir || dir>=DIRECTION)return false;
 	return col_dir[dir];
     }
+
+    public boolean isColWall(){
+	for(int i=0;i<DIRECTION;i++){
+	    if(col_dir[i])return true;
+	}
+	return false;
+    }
+
     
     public void update() {
 	pos = pos.add(vel);

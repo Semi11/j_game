@@ -3,7 +3,8 @@ import processing.core.PConstants;
 public enum MoveType {
     MOVE0(MoveStrategy.M0), 
     MOVE1(MoveStrategy.M1),
-    MOVE2(MoveStrategy.M2);
+    MOVE2(MoveStrategy.M2),
+    MOVE3(MoveStrategy.M3);
 
     private MoveStrategy type;
 
@@ -29,9 +30,7 @@ public enum MoveType {
 		}
 		
 		if(InputManager.INSTANCE.isKeyDown(PConstants.UP) && !pos_info.isColDir(PosInfo.UP) && pos_info.isColDir(PosInfo.DOWN)){
- 		    pos_info.setVel(pos_info.getVel().x, -10.0);
-		}else if(pos_info.isColDir(PosInfo.DOWN)){
-		    pos_info.setVel(pos_info.getVel().x,0);
+ 		    pos_info.setVel(pos_info.getVel().x, -10.0);				    		    
 		}
 	    }
 	},
@@ -39,7 +38,7 @@ public enum MoveType {
 	M1 {      
 	    void move(GameObject g_obj) {
 		PosInfo pos_info = g_obj.getPosInfo();
-		pos_info.setVel(0,0);
+		pos_info.setVel(0,pos_info.getVel().y);
 	    }
 	},
 	//bullet
@@ -47,6 +46,18 @@ public enum MoveType {
 	    void move(GameObject g_obj) {
 		PosInfo pos_info = g_obj.getPosInfo();
 		pos_info.setAcc(0,0);		
+	    }
+	},
+	//reflect bullet
+	M3 {      
+	    void move(GameObject g_obj) {
+		PosInfo pos_info = g_obj.getPosInfo();	
+		pos_info.setAcc(0,0);		
+		
+		if(pos_info.isColWall()){
+		    pos_info.setVel(-pos_info.getVel().x, pos_info.getVel().y);
+		    g_obj.setTag("ENEMY");
+		}
 	    }
 	};
 	

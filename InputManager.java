@@ -57,7 +57,6 @@ public enum InputManager {
     }
 
     public int getKeyDownTime(int key){
-	System.out.println(keys[key]);
 	return keys[key];
     }
 
