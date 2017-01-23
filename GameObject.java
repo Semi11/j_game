@@ -17,6 +17,7 @@ class GameObject implements Cloneable {
     private GameObjectManager manager;
     private boolean col_stage;
     private boolean active;
+    private boolean inactivatable;
 
     public GameObject() {
 	pos_info = new PosInfo();
@@ -32,7 +33,6 @@ class GameObject implements Cloneable {
 	pos_info.setPos(pos);
 	pos_info.setSize(size);
 	alive = true;
-	active = false;
     }
 
     public void setDrawer(Drawable d) {
@@ -133,13 +133,18 @@ class GameObject implements Cloneable {
     public void kill(){
 	this.sta_info.setHp(0);
     }
+
+    public void setInactivatable(boolean b){
+	this.inactivatable = b;
+    }
     
     public void activate(){
 	this.active = true;
     }
     
     public void inactivate(){
-	this.active = false;
+	if(!inactivatable)this.kill();
+	else this.active = false;
     }
     
     public boolean isActive(){

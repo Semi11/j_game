@@ -82,7 +82,7 @@ class CollisionManager {
     protected boolean isInScrean(PosInfo pos_info){
 	PosInfo s = new PosInfo();
 	s.setPos(screan.getPos().reverse());
-	s.setSize(screan.getSize());
+	s.setSize(screan.getSize().add(new Vec2(64,64)));
 	return collsionTestRect(pos_info, s);
     }
     
