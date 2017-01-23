@@ -1,7 +1,8 @@
 import processing.core.PApplet;
 
-class GameScean implements Scean{
+public class GameScean implements Scean{
     private PApplet app;
+    private ActionGame ag;
     private GameObjectManager g_obj_manager;
     private MapManager map_manager;
     private CollisionManager col_manager;
@@ -11,7 +12,8 @@ class GameScean implements Scean{
     private GameObject boss;
     private PosInfo screan = new PosInfo();
     
-    public GameScean(PApplet app, String path){
+    public GameScean(ActionGame ag,PApplet app, String path){
+	this.ag = ag;
 	this.app =app;
 	this.data_path = path;
 	screan.setSize(app.width,app.height);
