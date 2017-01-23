@@ -1,5 +1,5 @@
 enum GameObjectTag {
-    PLAYER,ENEMY,
+    PLAYER,ENEMY,BULLET
 }
 
 class GameObject implements Cloneable {

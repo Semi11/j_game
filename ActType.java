@@ -4,6 +4,7 @@ public enum ActType {
     ACT0(ActStrategy.A0),
     ACT1(ActStrategy.A1),
     ACT2(ActStrategy.A2),
+    ACT4(ActStrategy.A4),
     ACT3(ActStrategy.A3);
 
     private ActStrategy type;
@@ -53,8 +54,23 @@ public enum ActType {
 	    void act(GameObject g_obj) {
 	    }
 	},
+	//player bullet
+	A3 {
+	    void act(GameObject g_obj) {
+		PosInfo pos_info = g_obj.getPosInfo();	
+		if(pos_info.isColWall()){
+		    pos_info.setVel(-pos_info.getVel().x, pos_info.getVel().y);
+		    pos_info.setPos(pos_info.getPos().add(pos_info.getVel()));
+		    Vec2 size = pos_info.getSize();
+		    Vec2 pos = pos_info.getCenterPos().sub(size.half());
+		    GameObject b = g_obj.getManager().add(2,pos,size);
+		    b.getPosInfo().setVel(pos_info.getVel().reverse());
+		    g_obj.kill();
+		}
+	    }
+	},
 	//e1
-	A3 {    
+	A4 {    
 	    void act(GameObject g_obj) {
 		if((g_obj.getCount() % 180) == 0){
 		    PosInfo pos_info = g_obj.getPosInfo();

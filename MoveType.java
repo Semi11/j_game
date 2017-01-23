@@ -3,8 +3,7 @@ import processing.core.PConstants;
 public enum MoveType {
     MOVE0(MoveStrategy.M0), 
     MOVE1(MoveStrategy.M1),
-    MOVE2(MoveStrategy.M2),
-    MOVE3(MoveStrategy.M3);
+    MOVE2(MoveStrategy.M2);
 
     private MoveStrategy type;
 
@@ -47,20 +46,7 @@ public enum MoveType {
 		PosInfo pos_info = g_obj.getPosInfo();
 		pos_info.setAcc(0,0);		
 	    }
-	},
-	//reflect bullet
-	M3 {      
-	    void move(GameObject g_obj) {
-		PosInfo pos_info = g_obj.getPosInfo();	
-		pos_info.setAcc(0,0);		
-		
-		if(pos_info.isColWall()){
-		    pos_info.setVel(-pos_info.getVel().x, pos_info.getVel().y);
-		    g_obj.setTag("ENEMY");
-		    pos_info.setPos(pos_info.getPos().add(pos_info.getVel()));
-		}
-	    }
-	};
+      	};
 	
 	abstract void move(GameObject g_obj);
     }

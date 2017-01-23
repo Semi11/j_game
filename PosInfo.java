@@ -47,6 +47,10 @@ class PosInfo {
 	this.vel.set(x, y);
     }
 
+    public void setVel(Vec2 vel) {
+	this.vel = vel;
+    }
+
     public void setAcc(double x, double y) {
 	this.acc.set(x,y);
     }

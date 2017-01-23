@@ -9,9 +9,8 @@ public class GameObjectFactory {
     private List<HashMap<String, String>> g_obj_data_list;
 
     public GameObjectFactory(Drawable d, String path) {
-	CSVReader csv_reader = new CSVReader();
 	drawer = d;
-	g_obj_data_list = csv_reader.read(path + "GameObjectData.csv");
+	g_obj_data_list = TextFileIO.INSTANCE.readCSV(path + "GameObjectData.csv");
     }
 
     public GameObject getGameObject() {

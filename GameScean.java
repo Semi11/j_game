@@ -15,7 +15,7 @@ class GameScean implements Scean{
 	this.app =app;
 	this.data_path = path;
 	screan.setSize(app.width,app.height);
-	stage_num =0;
+	stage_num = Integer.parseInt(TextFileIO.INSTANCE.readText(path+ "save.dat").get(0));
 	stageInit();
     }
 
