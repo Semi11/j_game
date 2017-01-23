@@ -143,6 +143,8 @@ class PosInfo {
     }
     
     public void update() {
+	if(col_dir[RIGHT] || col_dir[LEFT])setVel(0.0, vel.y);
+	if(col_dir[UP] || col_dir[DOWN])setVel(vel.x, 0.0);
 	pos = pos.add(vel);
 	vel = vel.add(acc);
 	acc.set(0,0);

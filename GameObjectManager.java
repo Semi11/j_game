@@ -53,6 +53,7 @@ public class GameObjectManager {
     }
     
     public void update() {
+	//game object update
 	Iterator<GameObject> ite = g_obj_list.iterator();
 	while(ite.hasNext()){
 	    GameObject g = ite.next();
@@ -65,10 +66,10 @@ public class GameObjectManager {
 	    }
 	}
 	
+	//add game object
 	for (GameObject g : add_list) {
 	    g_obj_list.add(g);
 	}
-
 	add_list.clear();
     }
     

@@ -110,15 +110,15 @@ class GameObject implements Cloneable {
     public boolean update() {
 	if(!active)return alive;
 	mover.move(this);
-	pos_info.update();
 	acter.act(this);
+	pos_info.update();
 	cnt++;
-	if(sta_info.getHp()==0)alive=false;
+	if(sta_info.getHp()==0)alive=false;//only hp == 0
 	return alive;
     }
 
     public void draw() {
-	//	if(!active)return;
+	if(!active)return;
 	drawer.draw(img_id, pos_info);
     }
 

@@ -16,7 +16,7 @@ class CollisionManager {
 	for (GameObject g : g_obj_list) {
 	    PosInfo pi = g.getPosInfo();
 	    if(isInStage(pi)){
-		collisionTestMap(pi, g.isColisionStage());
+		if(g.isColisionStage())collisionTestMap(pi);
 		if(isInScrean(pi))g.activate();
 		else g.inactivate();
 	    }else{g.kill();}
@@ -40,7 +40,7 @@ class CollisionManager {
 	return true;
     }
 
-    protected void collisionTestMap(PosInfo pos_info, boolean col_stage) {
+    protected void collisionTestMap(PosInfo pos_info) {
 	Vec2 pos = pos_info.getPos();
 	Vec2 vel = pos_info.getVel();
 	Vec2 size = pos_info.getSize();
@@ -48,27 +48,25 @@ class CollisionManager {
 	//x
 	Vec2 tile_pos = map_manager.getTileCollision(pos_info,new Vec2(pos.x,pos.y-vel.y));
 	if (tile_pos!=null) {
-	    if (vel.x > 0) {
-		if(col_stage)pos.x = tile_pos.x-size.x;
+	    if (vel.x > 0.0) {
+		pos.x = tile_pos.x-size.x;
 		pos_info.colDir(PosInfo.RIGHT);
-	    } else if (vel.x < 0) {
-		if(col_stage)pos.x = tile_pos.x+map_manager.getTileWidth();
+	    } else if (vel.x < 0.0) {
+		pos.x = tile_pos.x+map_manager.getTileWidth();
 		pos_info.colDir(PosInfo.LEFT);
 	    }
-	    if(col_stage)pos_info.setVel(0.0, vel.y);
 	}
 	
 	//y
 	tile_pos =  map_manager.getTileCollision(pos_info,new Vec2(pos.x-vel.x,pos.y));
 	if (tile_pos != null) {
-	    if (vel.y > 0) {
-		if(col_stage)pos.y = tile_pos.y-size.y;
+	    if (vel.y > 0.0) {
+		pos.y = tile_pos.y-size.y;
 		pos_info.colDir(PosInfo.DOWN);
-	    } else if (vel.y < 0) {
-		if(col_stage)pos.y = tile_pos.y+map_manager.getTileHeight()+1;
+	    } else if (vel.y < 0.0) {
+		pos.y = tile_pos.y+map_manager.getTileHeight()+1;
 		pos_info.colDir(PosInfo.UP);
 	    }
-	    if(col_stage)pos_info.setVel(vel.x, 0.0);
 	}
      
     }
