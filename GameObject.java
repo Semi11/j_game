@@ -2,7 +2,7 @@ enum GameObjectTag {
     PLAYER,ENEMY,BULLET
 }
 
-class GameObject implements Cloneable {
+public class GameObject extends Utility  {
     private PosInfo pos_info;
     private StatusInfo sta_info;
     private MoveType mover;
@@ -16,28 +16,20 @@ class GameObject implements Cloneable {
     private boolean alive;
     private GameObjectManager manager;
     private boolean col_stage;
-    private boolean active;
     private boolean inactivatable;
 
-    public GameObject() {
-	pos_info = new PosInfo();
-	sta_info = new StatusInfo();
-    }
-
     public GameObject(Drawable drawer) {
-	this();
-	this.setDrawer(drawer);
+	super(drawer);
     }
 
     public void init(Vec2 pos, Vec2 size) {
-	pos_info.setPos(pos);
-	pos_info.setSize(size);
+	super.init(pos,size);
 	alive = true;
     }
 
-    public void setDrawer(Drawable d) {
-	this.drawer = d;
-    }
+    // public void setDrawer(Drawable d) {
+    // 	this.drawer = d;
+    // }
 
     public void setGameObjectID(int id) {
 	this.g_obj_id = id;
@@ -47,9 +39,9 @@ class GameObject implements Cloneable {
 	return this.g_obj_id;
     }
 
-    public void setImageID(int id) {
-	this.img_id = id;
-    }
+    // public void setImageID(int id) {
+    // 	this.img_id = id;
+    // }
 
     public void setHp(int hp) {
 	this.sta_info.setHp(hp);
@@ -91,9 +83,9 @@ class GameObject implements Cloneable {
 	return this.manager;
     }
   
-    public PosInfo getPosInfo(){
-	return this.pos_info; 
-    }
+    // public PosInfo getPosInfo(){
+    // 	return this.pos_info; 
+    // }
 
     public StatusInfo getStatusInfo(){
 	return this.sta_info; 
@@ -107,19 +99,21 @@ class GameObject implements Cloneable {
 	return this.col_stage;
     }
 
+    @Override
     public boolean update() {
 	if(!active)return alive;
 	mover.move(this);
 	acter.act(this);
 	pos_info.update();
 	cnt++;
-	if(sta_info.getHp()==0)alive=false;//only hp == 0
-	return alive;
+	if(sta_info.isAlive())return false;//only hp == 0
+	return super.update();
     }
 
+    @Override
     public void draw() {
 	if(!active)return;
-	drawer.draw(img_id, pos_info);
+	super.draw();
     }
 
     public void collsion(GameObject other) {
@@ -127,7 +121,7 @@ class GameObject implements Cloneable {
     }
 
     public boolean isAlive() {
-	return alive;
+	return sta_info.isAlive();
     }
 
     public void kill(){

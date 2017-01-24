@@ -1,14 +1,12 @@
 import processing.core.PApplet;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class ActionGame {
     private PApplet app;
     private String data_path;
     private Scean scean;
-
-    public enum  __SCEAN{
-	TITLE,
-	GAME,
-    }
+    private Deque<Scean> scean_stack = new ArrayDeque<Scean>();
     
     public ActionGame(PApplet app, String path){
 	this.app =app;
@@ -18,23 +16,17 @@ public class ActionGame {
 
     public void update(){
 	app.background(0);
+
+	if(scean_stack.size()==0)endGame();
 	
-	scean.update();
+	scean = scean_stack.getFirst();
+	if(!scean.update())scean_stack.pop();
 	scean.draw();
 	
 	InputManager.INSTANCE.update();
     }
 
-    public void changeScean(__SCEAN s){
-	switch(s){
-	case TITLE:
-	    this.scean = new TitleScean(this,app,data_path);
-	    break;
-	case GAME:
-	    this.scean = new GameScean(this,app,data_path);
-	    break;
-	default:
-	    break;
-	}
+    public void pushScean(Scean s){
+	scean_stack.push(s);
     }
 }

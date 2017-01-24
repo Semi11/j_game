@@ -40,12 +40,13 @@ public class GameScean implements Scean{
 	screan.setPos(x,y);
     }
     
-    public void update(){
-	if(!player.isAlive())stageInit();
-	if(!boss.isAlive()){stage_num++;stageInit();}
+    public boolean update(){
 	g_obj_manager.update();
 	col_manager.update();
 	updateScrean();
+	if(!player.isAlive())stageInit();
+	if(!boss.isAlive()){stage_num++;stageInit();}
+	return true;
     }
 
     public void draw(){

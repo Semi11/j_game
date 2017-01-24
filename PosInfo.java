@@ -10,29 +10,18 @@ class PosInfo {
     private Vec2 size;
     private boolean[] col_dir = new boolean[DIRECTION];
     private boolean[] dir = new boolean[DIRECTION];
-    private double rad;//rad
-    private double speed;
+    private double rad;
 
     public PosInfo() {
 	this(0, 0);
     }
 
     public PosInfo(double x, double y) {
-	this(x, y, 180);
-    }
-
-
-    public PosInfo(double x, double y, double ang) {
-	this(x, y, ang, 0.0);
-    }
-
-    public PosInfo(double x, double y, double ang, double speed) {
 	pos = new Vec2(x, y);
 	vel = new Vec2();
 	acc = new Vec2();
 	size = new Vec2();
 	this.rad = ang;
-	this.speed = speed;
     }
 
     public void setPos(double x, double y) {
@@ -114,8 +103,13 @@ class PosInfo {
 	return false;
     }
 
-    protected void updateDir(){
+    public void clearColDir(){
 	col_dir = new boolean[DIRECTION];	
+    }
+
+    protected void updateDir(){
+	clearColDir();
+
 	//right
 	if(0<rad && rad<Math.PI/2.0 ||
 	   (Math.PI + Math.PI/2.0)<rad && rad< Math.PI*2.0){

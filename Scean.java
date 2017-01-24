@@ -1,5 +1,5 @@
 interface Scean{
-    public void update();
+    public boolean update();
     public void draw();
 
 }

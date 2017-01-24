@@ -39,4 +39,9 @@ class StatusInfo {
 	}
     }
 
+    public boolean isAlive(){
+	if(hp==0)return false; //only hp==0
+	return true;
+    }
+
 }
