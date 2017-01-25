@@ -4,27 +4,26 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 
-class PImageManager {
-  private PApplet pApplet;
-  private List<PImage> img_list = new ArrayList<PImage>();
-  private String path;
+public class PImageManager {
+    private PApplet pApplet;
+    private List<PImage> img_list = new ArrayList<PImage>();
+    private String path;
 
-  public PImageManager(PApplet p, String path, String dir) {
-    pApplet = p;
-    this.path = path +"Image/" + dir + "Image";
-    System.out.println(this.path);
-    this.loadAll();
-  }
-
-  public void loadAll() {
-    File dir = new File(path);
-    File[] files = dir.listFiles();
-    for (int i=0; i<files.length; i++) {
-	img_list.add(pApplet.loadImage(path+"/"+i+".png"));
+    public PImageManager(PApplet p, String path, String dir) {
+	pApplet = p;
+	this.path = path +"Image/" + dir + "Image";
+	this.loadAll();
     }
-  }
 
-  public PImage getImage(int img_id) {
-    return img_list.get(img_id);
-  }
+    public void loadAll() {
+	File dir = new File(path);
+	File[] files = dir.listFiles();
+	for (int i=0; i<files.length; i++) {
+	    img_list.add(pApplet.loadImage(path+"/"+i+".png"));
+	}
+    }
+
+    public PImage getImage(int img_id) {
+	return img_list.get(img_id);
+    }
 }

@@ -1,7 +1,10 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,27 @@ public enum TextFileIO {
 	return str_list;
     }
     
+    public void writeText(String file_name, String str){
+	File file = new File(file_name);
+	List<String> str_list = new ArrayList<String>();
+	PrintWriter pw = null;
+	
+	try{ 
+	    pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+	    
+	    pw.print(str);
+	    
+	}catch(FileNotFoundException e){
+	    e.printStackTrace();
+	}catch(IOException e){
+	    e.printStackTrace();
+	}finally {
+	    if (pw != null) {
+		pw.close();
+	    }  
+	}
+
+    }
     
     public List<HashMap<String, String>> readCSV(String file_name) {
 	List<HashMap<String, String>> ret = new ArrayList<HashMap<String, String>>();    
