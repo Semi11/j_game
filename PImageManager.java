@@ -11,7 +11,8 @@ class PImageManager {
 
   public PImageManager(PApplet p, String path, String dir) {
     pApplet = p;
-    this.path = path + dir + "Image";
+    this.path = path +"Image/" + dir + "Image";
+    System.out.println(this.path);
     this.loadAll();
   }
 
@@ -19,7 +20,7 @@ class PImageManager {
     File dir = new File(path);
     File[] files = dir.listFiles();
     for (int i=0; i<files.length; i++) {
-      img_list.add(pApplet.loadImage(path+"/"+i+".png"));
+	img_list.add(pApplet.loadImage(path+"/"+i+".png"));
     }
   }
 

@@ -12,7 +12,7 @@ public class TitleScean implements Scean{
     private List<Utility> obj_list = new ArrayList<Utility>();
     private List<Utility> menu_list = new ArrayList<Utility>();
     private Utility cursol;
-    private int select_num = 0;
+    private char select_num = 0;
 
     public TitleScean(ActionGame ag,PApplet app, String path){
 	this.ag=ag;
@@ -38,10 +38,10 @@ public class TitleScean implements Scean{
     protected boolean selectMenu(int s){
 	switch(s){
 	case 0:
-	    ag.pushScean(new GameScean(ag,app,path));
+	    ag.pushScean(new GameScean(ag,app,data_path));
 	    break;
 	case 1:
-	    ag.pushScean(new GameScean(ag,app,path));
+	    ag.pushScean(new GameScean(ag,app,data_path));
 	    break;
 	default:
 	    return false;
@@ -59,14 +59,16 @@ public class TitleScean implements Scean{
 	if(InputManager.INSTANCE.getKeyDownTime(KeyEvent.VK_UP) == 1){
 	    select_num--;
 	}
-	select_num&= MENU_NUM;
+	select_num%= MENU_NUM;
 	
-	ec2 pos = menu_list.get(select_num).getPosInfo().getPos();
+	Vec2 pos = menu_list.get(select_num).getPosInfo().getPos();
 	cursol.getPosInfo().setPos(pos.x-10,pos.y);
 	
 	for(Utility u: obj_list){
 	    u.update();
 	}
+
+	return true;
     }
 
     public void draw(){

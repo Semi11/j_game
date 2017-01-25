@@ -11,7 +11,8 @@ public class ActionGame {
     public ActionGame(PApplet app, String path){
 	this.app =app;
 	this.data_path = path;
-	this.scean = new GameScean(this,app,path);
+	this.pushScean(new TitleScean(this,app,path));
+	//this.scean = new GameScean(this,app,path);
     }
 
     public void update(){
@@ -28,5 +29,9 @@ public class ActionGame {
 
     public void pushScean(Scean s){
 	scean_stack.push(s);
+    }
+
+    public void endGame(){
+	System.exit(0);
     }
 }

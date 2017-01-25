@@ -21,7 +21,7 @@ class PosInfo {
 	vel = new Vec2();
 	acc = new Vec2();
 	size = new Vec2();
-	this.rad = ang;
+	this.rad = 0;
     }
 
     public void setPos(double x, double y) {
@@ -74,10 +74,6 @@ class PosInfo {
 
     public double getRad() {
 	return this.rad;
-    }
-
-    public double getSpe() {
-	return this.speed;
     }
 
     public boolean isFacing(int dir){

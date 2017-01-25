@@ -3,28 +3,28 @@ enum GameObjectTag {
 }
 
 public class GameObject extends Utility  {
-    private PosInfo pos_info;
+    //private PosInfo pos_info;
     private StatusInfo sta_info;
     private MoveType mover;
     private ActType acter;
     private CollisionType collisioner;
-    private Drawable drawer;
+    //private Drawable drawer;
     private GameObjectTag tag;
     private int g_obj_id;
-    private int img_id;
+    //private int img_id;
     private int cnt;
-    private boolean alive;
+    private boolean active;
     private GameObjectManager manager;
     private boolean col_stage;
     private boolean inactivatable;
 
     public GameObject(Drawable drawer) {
 	super(drawer);
+	sta_info = new StatusInfo();
     }
 
     public void init(Vec2 pos, Vec2 size) {
 	super.init(pos,size);
-	alive = true;
     }
 
     // public void setDrawer(Drawable d) {
@@ -101,12 +101,12 @@ public class GameObject extends Utility  {
 
     @Override
     public boolean update() {
-	if(!active)return alive;
+	if(!active)return isAlive();
 	mover.move(this);
 	acter.act(this);
 	pos_info.update();
 	cnt++;
-	if(sta_info.isAlive())return false;//only hp == 0
+	if(!sta_info.isAlive())return false;//only hp == 0
 	return super.update();
     }
 
