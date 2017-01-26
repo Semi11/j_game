@@ -21,7 +21,8 @@ class PosInfo {
 	vel = new Vec2();
 	acc = new Vec2();
 	size = new Vec2();
-	this.rad = 0;
+	rad = Math.PI;
+	dir[LEFT] = true;
     }
 
     public void setPos(double x, double y) {
@@ -40,6 +41,10 @@ class PosInfo {
 	this.vel = vel;
     }
 
+    public void setVelRad(double vel, double rad) {
+	this.vel.set(vel * Math.cos(rad), vel * Math.sin(rad));
+    }
+
     public void setAcc(double x, double y) {
 	this.acc.set(x,y);
     }
@@ -50,6 +55,10 @@ class PosInfo {
 
     public void setSize(Vec2 size) {
 	this.size = size;
+    }
+
+    public void setRad(double rad){
+	this.rad = rad;
     }
 
     public Vec2 getPos() {
@@ -108,7 +117,7 @@ class PosInfo {
 
 	//right
 	if(0<rad && rad<Math.PI/2.0 ||
-	   (Math.PI + Math.PI/2.0)<rad && rad< Math.PI*2.0){
+	   (Math.PI + Math.PI/2.0)<rad && rad< (Math.PI*2.0)){
 	    dir[RIGHT] = true;
 	    dir[LEFT] = false;
 	}
@@ -120,7 +129,7 @@ class PosInfo {
 	}
 
 	//up
-	if(Math.PI<rad && rad<Math.PI*2.0){
+	if(-Math.PI<rad && rad<0){
 	    dir[UP] = true;
 	    dir[DOWN] = false;
 	}
@@ -138,7 +147,7 @@ class PosInfo {
 	pos = pos.add(vel);
 	vel = vel.add(acc);
 	acc.set(0,0);
-        rad = vel.getRad();
+	rad = vel.getRad();
 	updateDir();
     }
 }

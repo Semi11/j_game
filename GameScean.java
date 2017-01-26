@@ -49,7 +49,6 @@ public class GameScean implements Scean{
 
     protected boolean nextStage(){
 	if(++now_stage >= stage_num){
-	    //ag.pushScean(new EndingScean(ag,app,data_path));
 	    return false;
 	}
 	TextFileIO.INSTANCE.writeText(data_path + "save.dat", String.valueOf(now_stage));

@@ -35,7 +35,7 @@ class Vec2 {
     }
 
     public double getRad(){
-	if(x > 0) return Math.atan(y/x);
+	if(x >= 0) return Math.atan(y/x);
 	else return Math.atan(y/x) + Math.PI;
     }
 

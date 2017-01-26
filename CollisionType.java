@@ -18,7 +18,7 @@ public enum CollisionType {
 	//player
 	C0 {      
 	    void collision(GameObject g_obj, GameObject other) {	
-		if(other.getTag() == GameObjectTag.ENEMY){
+		if(other.getTag() == GameObjectTag.ENEMY || other.getTag() == GameObjectTag.ITEM){
 		    other.getStatusInfo().damage(g_obj.getStatusInfo().getPower());
 		}
 	    }
@@ -48,7 +48,7 @@ public enum CollisionType {
 		    g_obj.getStatusInfo().damage(other.getStatusInfo().getPower());
 		}
 	    }
-	};	
+	};
 	abstract void collision(GameObject g_obj, GameObject other);
     }
 }

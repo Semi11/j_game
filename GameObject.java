@@ -1,5 +1,5 @@
 enum GameObjectTag {
-    PLAYER,ENEMY,BULLET
+    PLAYER,ENEMY,BULLET,ITEM,
 }
 
 public class GameObject extends Utility  {
