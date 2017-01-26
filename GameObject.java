@@ -3,15 +3,12 @@ enum GameObjectTag {
 }
 
 public class GameObject extends Utility  {
-    //private PosInfo pos_info;
     private StatusInfo sta_info;
     private MoveType mover;
     private ActType acter;
     private CollisionType collisioner;
-    //private Drawable drawer;
     private GameObjectTag tag;
     private int g_obj_id;
-    //private int img_id;
     private int cnt;
     private boolean active;
     private GameObjectManager manager;
@@ -27,10 +24,6 @@ public class GameObject extends Utility  {
 	super.init(pos,size);
     }
 
-    // public void setDrawer(Drawable d) {
-    // 	this.drawer = d;
-    // }
-
     public void setGameObjectID(int id) {
 	this.g_obj_id = id;
     }
@@ -38,10 +31,6 @@ public class GameObject extends Utility  {
     public int getGameObjectID() {
 	return this.g_obj_id;
     }
-
-    // public void setImageID(int id) {
-    // 	this.img_id = id;
-    // }
 
     public void setHp(int hp) {
 	this.sta_info.setHp(hp);
@@ -82,10 +71,6 @@ public class GameObject extends Utility  {
     public GameObjectManager getManager(){
 	return this.manager;
     }
-  
-    // public PosInfo getPosInfo(){
-    // 	return this.pos_info; 
-    // }
 
     public StatusInfo getStatusInfo(){
 	return this.sta_info; 

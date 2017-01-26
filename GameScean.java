@@ -1,5 +1,6 @@
 import java.io.File;
 import processing.core.PApplet;
+import java.awt.event.KeyEvent;
 
 public class GameScean implements Scean{
     private PApplet app;
@@ -13,6 +14,7 @@ public class GameScean implements Scean{
     private GameObject player;
     private GameObject boss;
     private PosInfo screan = new PosInfo();
+    private Utility gameover;
     
     public GameScean(ActionGame ag,PApplet app, String path){
 	this.ag = ag;
@@ -22,6 +24,7 @@ public class GameScean implements Scean{
 	File dir = new File(path + "MapData");
 	stage_num = dir.listFiles().length;
 	now_stage = Integer.parseInt(TextFileIO.INSTANCE.readText(path+ "save.dat").get(0));
+	gameover = new Utility(new DrawPImage(app, path, "Extra", screan),new Vec2(0,0),new Vec2(800,230),5);
 	stageInit();
     }
 
@@ -45,7 +48,7 @@ public class GameScean implements Scean{
     }
 
     protected boolean nextStage(){
-	if(++now_stage > stage_num){
+	if(++now_stage >= stage_num){
 	    //ag.pushScean(new EndingScean(ag,app,data_path));
 	    return false;
 	}
@@ -54,19 +57,28 @@ public class GameScean implements Scean{
 
 	return true;
     }
+
+    protected void gameOver(){
+	gameover.getPosInfo().setPos(screan.getPos().reverse().add(new Vec2(100,100)));
+	if(InputManager.INSTANCE.isKeyDown(KeyEvent.VK_Z)){
+	    stageInit();
+	}
+    }
     
     public boolean update(){
+	updateScrean();
 	g_obj_manager.update();
 	col_manager.update();
-	updateScrean();
-	if(!player.isAlive())stageInit();
+	if(!player.isAlive())gameOver();
 	if(!boss.isAlive())return nextStage();
+	
 	return true;
     }
 
     public void draw(){
 	map_manager.draw();
 	g_obj_manager.draw();
+	if(!player.isAlive())gameover.draw();
     }
 
 }

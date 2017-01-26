@@ -18,7 +18,7 @@ public class TitleScean implements Scean{
 	this.ag=ag;
 	this.app=app;
 	this.data_path=path;
-	this.drawer = new DrawPImage(app, path, "Title", new PosInfo(0,0));
+	this.drawer = new DrawPImage(app, path, "Extra", new PosInfo(0,0));
 	
 	Utility title = new Utility(drawer,new Vec2(175,50),new Vec2(672,146),0);
 	Utility m1 = new Utility(drawer,new Vec2(350,300),new Vec2(272,64),2);

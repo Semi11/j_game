@@ -27,9 +27,9 @@ public enum MoveType {
 		}else{
 		    pos_info.setVel(0.0, pos_info.getVel().y);
 		}
-	
-		if(InputManager.INSTANCE.isKeyDown(PConstants.UP) && !pos_info.isColDir(PosInfo.UP) && pos_info.isColDir(PosInfo.DOWN)){
- 		    pos_info.setVel(pos_info.getVel().x, -10.0);				    		    
+		
+		if(InputManager.INSTANCE.isKeyDown(PConstants.UP) && !pos_info.isColDir(PosInfo.UP) && pos_info.isColDir(PosInfo.DOWN)){     
+		    pos_info.setVel(pos_info.getVel().x, -10.0); 
 		    pos_info.clearColDir();
 		}
 	    }
