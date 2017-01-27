@@ -132,7 +132,7 @@ public enum MoveType {
 		PosInfo pos_info = g_obj.getPosInfo();
 		
 		M3.move(g_obj);
-		pos_info.setVel(pos_info.getVel().x, Math.sin((double)g_obj.getCount()/10.0)*10);
+		pos_info.setVel(pos_info.getVel().x, Math.cos((double)g_obj.getCount()/10.0)*10);
 	       
 	    }
 	};

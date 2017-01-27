@@ -22,7 +22,6 @@ class PosInfo {
 	acc = new Vec2();
 	size = new Vec2();
 	rad = Math.PI;
-	dir[LEFT] = true;
     }
 
     public void setPos(double x, double y) {
